@@ -168,6 +168,10 @@
                             <a href="active_user.php">
                                 <i class="fas fa-table"></i>Table Active User</a>
                         </li>
+                        <li>
+                            <a href="daftar_necrology_user.php">
+                                <i class="fas fa-table"></i>Table Necrology User</a>
+                        </li>
                     </ul>
                 </nav>
             </div>

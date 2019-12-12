@@ -1,17 +1,14 @@
 <?php 
     include_once'connect.php';
-    $query="SELECT * from user_account where user_id not in (
-        select user_id from virtual_necrology 
-          union all select user_id from story 
-         union all select user_id from story_comment 
-        union all select user_id from rememberer 
-      union all select user_id from relation
-        union all select user_id from photo 
-        union all select user_id from flower
-        union all select user_id from favorite_necrology
-        union all select user_id from testimony
-         union all select user_id from obituary)
-     ;";
+    $query="SELECT
+    vn.nec_name AS obituary,
+    ua.username AS maintain_by,
+    ua.user_id
+    FROM virtual_necrology vn
+    INNER JOIN user_account ua
+    ON vn.user_id = ua.user_id
+    HAVING ua.user_id = 2
+    ";
     $result= mysqli_query($connect, $query);
 ?>
 <!DOCTYPE html>
@@ -25,7 +22,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Obituary Report | Daftar Necrology</title>
+    <title>Obituary Report | Daftar Obituary</title>
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -175,11 +172,11 @@
                         <a href="flower_obituary.php">
                                 <i class="fas fa-table"></i>Table Donasi</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="active_user.php">
                                 <i class="fas fa-table"></i>Table Active User</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="daftar_necrology_user.php">
                                 <i class="fas fa-table"></i>Table Necrology User</a>
                         </li>
@@ -221,17 +218,9 @@
                                     <table class="table table-data2">
                                         <thead>
                                             <tr>
+                                                <th>obituary</th>
+                                                <th>maintain_by</th>
                                                 <th>user_id</th>
-                                                <th>obituary_id</th>
-                                                <th>biography</th>
-                                                <th>username</th>
-                                                <th>birthdate</th>
-                                                <th>province</th>
-                                                <th>photo_profile</th>
-                                                <th>isGuest</th>
-                                                <th>gender_id</th>
-                                                <th></th>
-                                                
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -242,34 +231,15 @@
                                                 ?>  
                                                 <tr class="tr-shadow">
                                                 <td>
+                                                    <?php echo $rows['obituary'];?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows['maintain_by'];?>
+                                                </td>
+                                                <td>
                                                     <?php echo $rows['user_id'];?>
                                                 </td>
-                                                <td>
-                                                    <?php echo $rows['obituary_id'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['biography'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['username'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['birthdate'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['province'];?>
-                                                </td>
-                                                <td>
-                                                <img src ="<?php echo $rows['photo_profile']; ?>" />
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['isGuest'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['gender_id'];?>
-                                                </td>
-                                                
-                                                
+                                              
                                             </tr>
                                             <tr class="spacer"></tr>
                                             <?php
