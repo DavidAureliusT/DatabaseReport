@@ -1,3 +1,3 @@
 <?php
-    $connect = mysqli_connect('localhost', 'root', '', 'uas_database_2019');
+    $connect = mysqli_connect('localhost', 'root', '', 'obituary');
 ?>
