@@ -1,11 +1,17 @@
 <?php 
     include_once'connect.php';
-    $query="SELECT * FROM obituary;";
-    $result= mysqli_query($connect, $query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!--javascript tablesorter-->
+    <script src="vendor/jquery.tablesorter.js"></script>
+    <script>
+        $(document).ready( function () {
+            $("#myTable").tablesorter();
+        })
+    </script>
+
     <!-- Required meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -175,28 +181,13 @@
                     <div class="container-fluid">
                         <div class="header-wrap">
 						
-						
-						
-
-						
-						
                             <form class="form-header" action="" method="POST" enctype="multipart/form-data">
                                 <input class="au-input au-input--xl" type="text" name="t1"
-                                    placeholder="Search for datas &amp; reports..." />
+                                    placeholder="Search by name.." />
                                 <button class="au-btn--submit" type="submit" name="submit4" value="search">
                                     <i class="zmdi zmdi-search"></i>
                                 </button>
                             </form>
-							
-							
-							
-							
-							
-							
-							
-	
-
-							
 							
                         </div>
                     </div>
@@ -211,18 +202,38 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
+                                <?php
+                                if(isset($_POST["submit4"])){  
+                                    $query="SELECT *,ob.obituary_id AS 'id_obituary' FROM obituary ob INNER JOIN user_account ua ON ob.user_id = ua.user_id INNER JOIN gender g ON ob.gender_id = g.gender_id WHERE fullname LIKE '%".$_POST['t1']."%'"; //like %.$_POST.% = mengeluarkan hasil yang ada a nya , kalau %.$_POST = yang diakhiri huruf yang di postnya  
+                                    $result=$connect->query($query);    
+                                ?>
                                 <h3 class="title-5 m-b-35">data table</h3>
                                 <div class="table-responsive table-responsive-data2">
-                                    <table class="table table-data2">
+                                    <table class="table table-data2" id="myTable">
                                         <thead>
                                             <tr>
                                                 <th>obituary_id</th>
-                                                <th>gender_id</th>
-                                                <th>maintain_by_id</th>
+                                                <th>gender</th>
+                                                <th>owner(username)</th>
                                                 <th>biography</th>
                                                 <th>fullname</th>
                                                 <th>birthdate</th>
-                                                <th>nation</th>
+                                                <th>region</th>
+                                                <th>death_date</th>
+                                                <th>death_location</th>
+                                                <th>last_edited_date</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <thead>
+                                            <tr>
+                                                <th>obituary_id</th>
+                                                <th>gender</th>
+                                                <th>owner(username)</th>
+                                                <th>biography</th>
+                                                <th>fullname</th>
+                                                <th>birthdate</th>
+                                                <th>region</th>
                                                 <th>death_date</th>
                                                 <th>death_location</th>
                                                 <th>last_edited_date</th>
@@ -236,23 +247,23 @@
                                                 ?>  
                                                 <tr class="tr-shadow">
                                                 <td>
-                                                    <?php echo $rows['obituary_id'];?>
+                                                    <?php echo $rows['id_obituary'];?>
                                                 </td>
                                                 <td>
                                                     <?php 
-                                                    if($rows['gender_id'] == 1)
+                                                    if($rows['gender_type'] == "Male")
                                                     {
                                                         ?>
-                                                        <span class="status--process"><?php echo $rows['gender_id'];?></span>
+                                                        <span class="status--process"><?php echo $rows['gender_type'];?></span>
                                                         <?php
                                                     }else {
                                                         ?>
-                                                        <span class="status--denied"><?php echo $rows['gender_id'];?></span>
+                                                        <span class="status--denied"><?php echo $rows['gender_type'];?></span>
                                                         <?php
                                                     }?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $rows['user_id'];?>
+                                                    <?php echo $rows['username'];?>
                                                 </td>
                                                 <td class="desc">
                                                     <?php echo $rows['biography'];?>
@@ -279,6 +290,8 @@
                                             <tr class="spacer"></tr>
                                             <?php
                                             }
+                                            unset($_POST["submit4"]);
+                                        }
                                             ?>
                                         </tbody>
                                     </table>
@@ -289,53 +302,14 @@
                     </div>
                 </div>
             </div>
-			
-										
-									
-							
-							
-							
-							
-						<?php	
-						if(isset($_POST["submit4"])){  
-$query="select * from obituary where fullname like '%".$_POST['t1']."%'"; //like %.$_POST.% = mengeluarkan hasil yang ada a nya , kalau %.$_POST = yang diakhiri huruf yang di postnya  
-	$result=$connect->query($query);
-	echo "<table border=1>";
-	echo"<tr>";
-	echo"<th>"; echo "obituary_id"; echo "</td>";
-	echo"<th>"; echo "gender_id"; echo "</td>";
-	echo"<th>"; echo "user_id"; echo "</td>";
-	echo"<th>"; echo "biography"; echo "</td>";
-	echo"<th>"; echo "fullname"; echo "</td>";
-	echo"<th>"; echo "birthdate"; echo "</td>";
-	echo"<th>"; echo "region"; echo "</td>";
-	echo"<th>"; echo "death_date"; echo "</td>";
-	echo"<th>"; echo "death_location"; echo "</td>";
-	echo"<th>"; echo "last_edited"; echo "</td>";
-	echo"</tr>";
-	 while($rows = mysqli_fetch_array($result))
-                                            {			
-	echo"<tr>";
-	echo"<td>"; echo $rows["obituary_id"]; echo "</td>";
-	echo"<td>"; echo $rows["gender_id"]; echo "</td>";
-	echo"<td>"; echo $rows["user_id"]; echo "</td>";
-	echo"<td>"; echo $rows["biography"]; echo "</td>";
-	echo"<td>"; echo $rows["fullname"]; echo "</td>";
-	echo"<td>"; echo $rows["birthdate"]; echo "</td>";
-	echo"<td>"; echo $rows["region"]; echo "</td>";
-	echo"<td>"; echo $rows["death_date"]; echo "</td>";
-	echo"<td>"; echo $rows["death_location"]; echo "</td>";
-	echo"<td>"; echo $rows["last_edited"]; echo "</td>";
-	echo"</tr>";
-											}
-	unset($_POST["submit4"]);
-
-						}
-?>
-            
 
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
+    <script src="vendor/ddtf.js"></script>
+    <script>
+        $('#myTable').ddTableFilter();
+    </script>
+    
     <!-- Bootstrap JS-->
     <script src="vendor/bootstrap-4.1/popper.min.js"></script>
     <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
