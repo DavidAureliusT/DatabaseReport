@@ -171,6 +171,10 @@
                             <a href="daftar_necrology.php">
                                 <i class="fas fa-table"></i>Table Relation</a>
                         </li>
+                        <li>
+                            <a href="daftar_obituary_in_necrology.php">
+                                <i class="fas fa-table"></i>Table Obituary in Necrology</a>
+                        </li>
                     </ul>
                 </nav>
             </div>

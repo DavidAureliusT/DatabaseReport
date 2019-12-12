@@ -1,11 +1,13 @@
 <?php 
     include_once'connect.php';
-    $query="SELECT * FROM user_account;";
-    $result= mysqli_query($connect, $query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!--javascript tablesorter-->
+    <script src="vendor/jquery.tablesorter.js"></script>
+    
+
     <!-- Required meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,7 +16,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Obituary Report | Daftar User Account</title>
+    <title>Obituary Report | Daftar obituary in necrology</title>
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -40,6 +42,7 @@
 <body class="animsition">
     <div class="page-wrapper">
         <!-- HEADER MOBILE-->
+
         <header class="header-mobile d-block d-lg-none">
             <div class="header-mobile__bar">
                 <div class="container-fluid">
@@ -148,7 +151,7 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li class="active">
+                        <li>
                             <a href="daftar_userAccount.php">
                                 <i class="fas fa-table"></i>Table User Account</a>
                         </li>
@@ -161,10 +164,10 @@
                                 <i class="fas fa-table"></i>Table Necrology</a>
                         </li>
                         <li>
-                            <a href="daftar_necrology.php">
+                            <a href="daftar_relasi.php">
                                 <i class="fas fa-table"></i>Table Relation</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="daftar_obituary_in_necrology.php">
                                 <i class="fas fa-table"></i>Table Obituary in Necrology</a>
                         </li>
@@ -181,13 +184,6 @@
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="header-wrap">
-                            <form class="form-header" action="" method="POST">
-                                <input class="au-input au-input--xl" type="text" name="search"
-                                    placeholder="Search for datas &amp; reports..." />
-                                <button class="au-btn--submit" type="submit">
-                                    <i class="zmdi zmdi-search"></i>
-                                </button>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -201,23 +197,24 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
-                                <h3 class="title-5 m-b-35">data User Account</h3>
+                                <?php 
+                                    $query="SELECT
+                                        vn.nec_name ,
+                                        ob.fullname 
+                                        FROM virtual_necrology vn
+                                        RIGHT JOIN necrology_obituary n_o
+                                        ON vn.necrology_id = n_o.necrology_id
+                                        LEFT JOIN obituary ob
+                                        ON n_o.obituary_id = ob.obituary_id;"; 
+                                    $result=$connect->query($query);    
+                                ?>
+                                <h3 class="title-5 m-b-35">data Obituary in Necrology</h3>
                                 <div class="table-responsive table-responsive-data2">
-                                    <table class="table table-data2">
+                                    <table class="table table-data2" id="myTable">
                                         <thead>
                                             <tr>
-                                                <th>user_id</th>
-                                                <th>obituary_id</th>
-                                                <th>username</th>
-                                                <th>biography</th>
-                                                <th>birthdate</th>
-                                                <th>province</th>
-                                                <th>photo_profile</th>
-                                                <th>isGuest</th>
-                                                <th>gender_id</th>
-                                                <th></th>
-                                                
-                                                <th></th>
+                                                <th>nama_necrology</th>
+                                                <th>obituary</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -227,47 +224,16 @@
                                                 ?>  
                                                 <tr class="tr-shadow">
                                                 <td>
-                                                    <?php echo $rows['user_id'];?>
+                                                    <?php echo $rows['nec_name'];?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $rows['obituary_id'];?>
+                                                    <?php echo $rows['fullname'];?>
                                                 </td>
-                                                <td>
-                                                    <?php echo $rows['username'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['biography'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['birthdate'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['province'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['photo_profile'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['isGuest'];?>
-                                                </td>
-                                                <td>
-                                                    <?php 
-                                                    if($rows['gender_id'] == 1)
-                                                    {
-                                                        ?>
-                                                        <span class="status--process"><?php echo $rows['gender_id'];?></span>
-                                                        <?php
-                                                    }else {
-                                                        ?>
-                                                        <span class="status--denied"><?php echo $rows['gender_id'];?></span>
-                                                        <?php
-                                                    }?>
-                                                </td>
-                                                
                                             </tr>
                                             <tr class="spacer"></tr>
                                             <?php
                                             }
+                                            
                                             ?>
                                         </tbody>
                                     </table>
@@ -278,10 +244,14 @@
                     </div>
                 </div>
             </div>
-            
 
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
+    <script src="vendor/ddtf.js"></script>
+    <script>
+        $('#myTable').ddTableFilter();
+    </script>
+    
     <!-- Bootstrap JS-->
     <script src="vendor/bootstrap-4.1/popper.min.js"></script>
     <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
