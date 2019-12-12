@@ -168,6 +168,16 @@
                             <a href="daftar_obituary_in_necrology.php">
                                 <i class="fas fa-table"></i>Table Obituary in Necrology</a>
                         </li>
+                        <!--from Nick-->
+                        <li>
+                            <a href="flower_obituary.php">
+                                <i class="fas fa-table"></i>Table Donasi</a>
+                        </li>
+                        <li>
+                            <a href="not_active_user.php">
+                                <i class="fas fa-table"></i>Table Not Active User</a>
+                        </li>
+                        
                     </ul>
                 </nav>
             </div>
