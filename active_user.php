@@ -1,6 +1,17 @@
 <?php 
     include_once'connect.php';
-    $query="SELECT * FROM virtual_necrology;";
+    $query="SELECT * from user_account where user_id not in (
+        select user_id from virtual_necrology 
+          union all select user_id from story 
+         union all select user_id from story_comment 
+        union all select user_id from rememberer 
+      union all select user_id from relation
+        union all select user_id from photo 
+        union all select user_id from flower
+        union all select user_id from favorite_necrology
+        union all select user_id from testimony
+         union all select user_id from obituary)
+     ;";
     $result= mysqli_query($connect, $query);
 ?>
 <!DOCTYPE html>
@@ -156,7 +167,7 @@
                             <a href="daftar_obituary.php">
                                 <i class="fas fa-table"></i>Table Obituary</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="daftar_necrology.php">
                                 <i class="fas fa-table"></i>Table Necrology</a>
                         </li>
@@ -164,7 +175,7 @@
                         <a href="flower_obituary.php">
                                 <i class="fas fa-table"></i>Table Donasi</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="active_user.php">
                                 <i class="fas fa-table"></i>Table Active User</a>
                         </li>
@@ -206,12 +217,15 @@
                                     <table class="table table-data2">
                                         <thead>
                                             <tr>
-                                                <th>necrology_id</th>
-                                                <th>owner</th>
-                                                <th>necrology name</th>
-                                                <th>address</th>
+                                                <th>user_id</th>
+                                                <th>obituary_id</th>
+                                                <th>biography</th>
+                                                <th>username</th>
+                                                <th>birthdate</th>
+                                                <th>province</th>
                                                 <th>photo_profile</th>
-                                                <th>description</th>
+                                                <th>isGuest</th>
+                                                <th>gender_id</th>
                                                 <th></th>
                                                 
                                                 <th></th>
@@ -224,22 +238,31 @@
                                                 ?>  
                                                 <tr class="tr-shadow">
                                                 <td>
-                                                    <?php echo $rows['necrology_id'];?>
-                                                </td>
-                                                <td>
                                                     <?php echo $rows['user_id'];?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $rows['nec_name'];?>
+                                                    <?php echo $rows['obituary_id'];?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $rows['address'];?>
+                                                    <?php echo $rows['biography'];?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows['username'];?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows['birthdate'];?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows['province'];?>
                                                 </td>
                                                 <td>
                                                 <img src ="<?php echo $rows['photo_profile']; ?>" />
                                                 </td>
                                                 <td>
-                                                    <?php echo $rows['description'];?>
+                                                    <?php echo $rows['isGuest'];?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows['gender_id'];?>
                                                 </td>
                                                 
                                                 

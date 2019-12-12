@@ -173,6 +173,10 @@
                             <a href="flower_obituary.php">
                                 <i class="fas fa-table"></i>Table Donasi</a>
                         </li>
+                        <li>
+                            <a href="active_user.php">
+                                <i class="fas fa-table"></i>Table Active User</a>
+                        </li>
                         
                     </ul>
                 </nav>

@@ -40,7 +40,6 @@
 <body class="animsition">
     <div class="page-wrapper">
         <!-- HEADER MOBILE-->
-
         <header class="header-mobile d-block d-lg-none">
             <div class="header-mobile__bar">
                 <div class="container-fluid">
@@ -165,6 +164,10 @@
                         <a href="flower_obituary.php">
                                 <i class="fas fa-table"></i>Table Donasi</a>
                         </li>
+                        <li>
+                            <a href="active_user.php">
+                                <i class="fas fa-table"></i>Table Active User</a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -178,30 +181,13 @@
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="header-wrap">
-						
-						
-						
-
-						
-						
-                            <form class="form-header" action="" method="POST" enctype="multipart/form-data">
-                                <input class="au-input au-input--xl" type="text" name="t1"
+                            <form class="form-header" action="" method="POST">
+                                <input class="au-input au-input--xl" type="text" name="search"
                                     placeholder="Search for datas &amp; reports..." />
-                                <button class="au-btn--submit" type="submit" name="submit4" value="search">
+                                <button class="au-btn--submit" type="submit">
                                     <i class="zmdi zmdi-search"></i>
                                 </button>
                             </form>
-							
-							
-							
-							
-							
-							
-							
-	
-
-							
-							
                         </div>
                     </div>
                 </div>
@@ -293,49 +279,6 @@
                     </div>
                 </div>
             </div>
-			
-										
-									
-							
-							
-							
-							
-						<?php	
-						if(isset($_POST["submit4"])){  
-$query="select * from obituary where fullname like '%".$_POST['t1']."%'"; //like %.$_POST.% = mengeluarkan hasil yang ada a nya , kalau %.$_POST = yang diakhiri huruf yang di postnya  
-	$result=$connect->query($query);
-	echo "<table border=1>";
-	echo"<tr>";
-	echo"<th>"; echo "obituary_id"; echo "</td>";
-	echo"<th>"; echo "gender_id"; echo "</td>";
-	echo"<th>"; echo "user_id"; echo "</td>";
-	echo"<th>"; echo "biography"; echo "</td>";
-	echo"<th>"; echo "fullname"; echo "</td>";
-	echo"<th>"; echo "birthdate"; echo "</td>";
-	echo"<th>"; echo "region"; echo "</td>";
-	echo"<th>"; echo "death_date"; echo "</td>";
-	echo"<th>"; echo "death_location"; echo "</td>";
-	echo"<th>"; echo "last_edited"; echo "</td>";
-	echo"</tr>";
-	 while($rows = mysqli_fetch_array($result))
-                                            {			
-	echo"<tr>";
-	echo"<td>"; echo $rows["obituary_id"]; echo "</td>";
-	echo"<td>"; echo $rows["gender_id"]; echo "</td>";
-	echo"<td>"; echo $rows["user_id"]; echo "</td>";
-	echo"<td>"; echo $rows["biography"]; echo "</td>";
-	echo"<td>"; echo $rows["fullname"]; echo "</td>";
-	echo"<td>"; echo $rows["birthdate"]; echo "</td>";
-	echo"<td>"; echo $rows["region"]; echo "</td>";
-	echo"<td>"; echo $rows["death_date"]; echo "</td>";
-	echo"<td>"; echo $rows["death_location"]; echo "</td>";
-	echo"<td>"; echo $rows["last_edited"]; echo "</td>";
-	echo"</tr>";
-											}
-	unset($_POST["submit4"]);
-
-						}
-?>
             
 
     <!-- Jquery JS-->
