@@ -1,16 +1,14 @@
 <?php 
     include_once'connect.php';
+    $query="SELECT *,ob.obituary_id AS 'id_obituary' FROM obituary ob INNER JOIN user_account ua ON ob.user_id = ua.user_id INNER JOIN gender g ON ob.gender_id = g.gender_id WHERE fullname LIKE '%".$_POST['t1']."%'"; //like %.$_POST.% = mengeluarkan hasil yang ada a nya , kalau %.$_POST = yang diakhiri huruf yang di postnya  
+    $result=$connect->query($query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <!--javascript tablesorter-->
     <script src="vendor/jquery.tablesorter.js"></script>
-    <script>
-        $(document).ready( function () {
-            $("#myTable").tablesorter();
-        })
-    </script>
+    
 
     <!-- Required meta tags-->
     <meta charset="UTF-8">
@@ -207,7 +205,7 @@
                                     $query="SELECT *,ob.obituary_id AS 'id_obituary' FROM obituary ob INNER JOIN user_account ua ON ob.user_id = ua.user_id INNER JOIN gender g ON ob.gender_id = g.gender_id WHERE fullname LIKE '%".$_POST['t1']."%'"; //like %.$_POST.% = mengeluarkan hasil yang ada a nya , kalau %.$_POST = yang diakhiri huruf yang di postnya  
                                     $result=$connect->query($query);    
                                 ?>
-                                <h3 class="title-5 m-b-35">data table</h3>
+                                <h3 class="title-5 m-b-35">data Obituary</h3>
                                 <div class="table-responsive table-responsive-data2">
                                     <table class="table table-data2" id="myTable">
                                         <thead>
