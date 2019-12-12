@@ -2,6 +2,8 @@
     include_once'connect.php';
     $query="SELECT * FROM user_account;";
     $result= mysqli_query($connect, $query);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -194,7 +196,31 @@
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
                                 <h3 class="title-5 m-b-35">data table</h3>
-                                <div class="table-responsive table-responsive-data2">
+                                <!-- START Fitur Filter-->
+                                <div class="table-data__tool">
+                                    <div class="table-data__tool-left">
+                                        <div class="rs-select2--light rs-select2--md">
+                                            <select class="js-select2" name="gender">
+                                                <option selected="selected">All Gender</option>
+                                                <option value="">Male</option>
+                                                <option value="">Female</option>
+                                            </select>
+                                            <div class="dropDownSelect2"></div>
+                                        </div>
+                                        <div class="rs-select2--light rs-select2--md">
+                                            <select class="js-select2" name="membership">
+                                                <option selected="selected">Guest & Member</option>
+                                                <option value="">Guest</option>
+                                                <option value="">Member</option>
+                                            </select>
+                                            <div class="dropDownSelect2"></div>
+                                        </div>
+                                        <button class="au-btn-filter">
+                                            <i class="zmdi zmdi-filter-list"></i>filters</button>
+                                    </div>
+                                </div>
+                                <!-- END Fitur Filter-->
+                                <div class="table-responsive table-responsive-data2" id="myTable">
                                     <table class="table table-data2">
                                         <thead>
                                             <tr>
@@ -208,7 +234,6 @@
                                                 <th>isGuest</th>
                                                 <th>gender_id</th>
                                                 <th></th>
-                                                
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -274,6 +299,10 @@
 
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
+    <script src="vendor/ddtf.js"></script>
+    <script>
+        $('#myTable').ddTableFilter();
+    </script>
     <!-- Bootstrap JS-->
     <script src="vendor/bootstrap-4.1/popper.min.js"></script>
     <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
