@@ -160,6 +160,10 @@
                             <a href="daftar_necrology.php">
                                 <i class="fas fa-table"></i>Table Necrology</a>
                         </li>
+                        <li>
+                            <a href="daftar_necrology.php">
+                                <i class="fas fa-table"></i>Table Relation</a>
+                        </li>
                     </ul>
                 </nav>
             </div>
