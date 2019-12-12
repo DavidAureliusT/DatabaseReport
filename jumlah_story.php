@@ -180,7 +180,10 @@
                             <a href="jumlah_story.php">
                                 <i class="fas fa-table"></i>Table Jumlah Story User</a>
                         </li>
-                        
+                        <li>
+                            <a href="rememberer.php">
+                                <i class="fas fa-table"></i>Table rememberer</a>
+                        </li>
                     </ul>
                 </nav>
             </div>

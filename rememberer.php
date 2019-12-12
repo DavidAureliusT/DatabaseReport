@@ -1,6 +1,11 @@
 <?php 
     include_once'connect.php';
-    $query="SELECT * FROM user_account;";
+    $query="SELECT
+    fullname,rememberer.obituary_id,count(rmb_id) as total from rememberer
+    left join obituary on obituary.obituary_id= rememberer.obituary_id 
+    group by rememberer.obituary_id
+    
+    ;";
     $result= mysqli_query($connect, $query);
 ?>
 <!DOCTYPE html>
@@ -148,7 +153,7 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li class="active">
+                        <li>
                             <a href="daftar_userAccount.php">
                                 <i class="fas fa-table"></i>Table User Account</a>
                         </li>
@@ -161,7 +166,7 @@
                                 <i class="fas fa-table"></i>Table Necrology</a>
                         </li>
                         <li>
-                        <a href="flower_obituary.php">
+                            <a href="flower_obituary.php">
                                 <i class="fas fa-table"></i>Table Donasi</a>
                         </li>
                         <li>
@@ -172,14 +177,15 @@
                             <a href="daftar_necrology_user.php">
                                 <i class="fas fa-table"></i>Table Necrology User</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="jumlah_story.php">
                                 <i class="fas fa-table"></i>Table Jumlah Story User</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="rememberer.php">
                                 <i class="fas fa-table"></i>Table rememberer</a>
                         </li>
+                        
                     </ul>
                 </nav>
             </div>
@@ -218,18 +224,11 @@
                                     <table class="table table-data2">
                                         <thead>
                                             <tr>
-                                                <th>user_id</th>
+                  
+
+                                                <th>fullname</th>
                                                 <th>obituary_id</th>
-                                                <th>username</th>
-                                                <th>biography</th>
-                                                <th>birthdate</th>
-                                                <th>province</th>
-                                                <th>photo_profile</th>
-                                                <th>isGuest</th>
-                                                <th>gender_id</th>
-                                                <th></th>
-                                                
-                                                <th></th>
+                                                <th>total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -239,42 +238,17 @@
                                                 ?>  
                                                 <tr class="tr-shadow">
                                                 <td>
-                                                    <?php echo $rows['user_id'];?>
+                                                    <?php echo $rows['fullname'];?>
                                                 </td>
                                                 <td>
                                                     <?php echo $rows['obituary_id'];?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $rows['username'];?>
+                                                    <?php echo $rows['total'] ;?> 
                                                 </td>
-                                                <td>
-                                                    <?php echo $rows['biography'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['birthdate'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['province'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['photo_profile'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['isGuest'];?>
-                                                </td>
-                                                <td>
-                                                    <?php 
-                                                    if($rows['gender_id'] == 1)
-                                                    {
-                                                        ?>
-                                                        <span class="status--process"><?php echo $rows['gender_id'];?></span>
-                                                        <?php
-                                                    }else {
-                                                        ?>
-                                                        <span class="status--denied"><?php echo $rows['gender_id'];?></span>
-                                                        <?php
-                                                    }?>
-                                                </td>
+                                               
+                                               <td>
+                                                
                                                 
                                             </tr>
                                             <tr class="spacer"></tr>
