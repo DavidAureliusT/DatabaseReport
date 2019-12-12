@@ -160,6 +160,10 @@
                             <a href="daftar_necrology.php">
                                 <i class="fas fa-table"></i>Table Necrology</a>
                         </li>
+                        <li>
+                        <a href="flower_obituary.php">
+                                <i class="fas fa-table"></i>Table Donasi</a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -219,7 +223,7 @@
                                                     <?php echo $rows['necrology_id'];?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $rows['owner_id'];?>
+                                                    <?php echo $rows['user_id'];?>
                                                 </td>
                                                 <td>
                                                     <?php echo $rows['nec_name'];?>
@@ -228,7 +232,7 @@
                                                     <?php echo $rows['address'];?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $rows['photo_profile'];?>
+                                                <img src ="<?php echo $rows['photo_profile']; ?>" />
                                                 </td>
                                                 <td>
                                                     <?php echo $rows['description'];?>
