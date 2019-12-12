@@ -172,6 +172,10 @@
                             <a href="daftar_necrology_user.php">
                                 <i class="fas fa-table"></i>Table Necrology User</a>
                         </li>
+                        <li>
+                            <a href="jumlah_story.php">
+                                <i class="fas fa-table"></i>Table Jumlah Story User</a>
+                        </li>
                     </ul>
                 </nav>
             </div>
