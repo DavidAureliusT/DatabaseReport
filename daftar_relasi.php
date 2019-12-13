@@ -6,11 +6,7 @@
 <head>
     <!--javascript tablesorter-->
     <script src="vendor/jquery.tablesorter.js"></script>
-    <script>
-        $(document).ready( function () {
-            $("#myTable").tablesorter();
-        })
-    </script>
+    
 
     <!-- Required meta tags-->
     <meta charset="UTF-8">
@@ -20,7 +16,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Obituary Report | Daftar Necrology</title>
+    <title>Obituary Report | Daftar Relasi</title>
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -205,7 +201,6 @@
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="header-wrap">
-							
                         </div>
                     </div>
                 </div>
@@ -219,30 +214,36 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
-                                <?php
-                                  
-                                    $query="SELECT *,
-                                        vn.nec_name AS nama_necrology,
-                                        COUNT(fn.necrology_id) as favorite_total
-                                        FROM virtual_necrology vn
-                                        INNER JOIN favorite_necrology fn
-                                        ON vn.necrology_id = fn.necrology_id
+                                <?php 
+                                    $query="SELECT *, ob.obituary_id AS id_obituary
+                                        FROM relation re
                                         INNER JOIN user_account ua
-                                        ON ua.user_id = vn.user_id
-                                        GROUP BY fn.necrology_id";
+                                        ON ua.user_id = re.user_id
+                                        INNER JOIN relation_type rt
+                                        ON re.relation_type_id = rt.relation_id
+                                        RIGHT JOIN obituary ob
+                                        ON re.obituary_id = ob.obituary_id
+                                        "; 
+                                    //like %.$_POST.% = mengeluarkan hasil yang ada a nya , kalau %.$_POST = yang diakhiri huruf yang di postnya  
                                     $result=$connect->query($query);    
                                 ?>
-                                <h3 class="title-5 m-b-35">data Necrology</h3>
+                                <h3 class="title-5 m-b-35">data Obituary</h3>
                                 <div class="table-responsive table-responsive-data2">
                                     <table class="table table-data2" id="myTable">
                                         <thead>
                                             <tr>
-                                                <th>necrology_id</th>
-                                                <th>nama necrology</th>
-                                                <th>nama owner</th>
-                                                <th>address</th>
-                                                <th>description</th>
-                                                <th>favorite_total</th>
+                                                <th>obituary_id</th>
+                                                <th>Obituary name (fullname)</th>
+                                                <th>relation</th>
+                                                <th>username</th>
+                                                <th>user_province</th>
+                                            </tr>
+                                            <tr>
+                                                <th>obituary_id</th>
+                                                <th>Obituary name (fullname)</th>
+                                                <th>relation</th>
+                                                <th>username</th>
+                                                <th>user_province</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -252,29 +253,26 @@
                                                 ?>  
                                                 <tr class="tr-shadow">
                                                 <td>
-                                                    <?php echo $rows['necrology_id'];?>
+                                                    <?php echo $rows['id_obituary'];?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $rows['nama_necrology'];?>
+                                                    <?php echo $rows['fullname'];?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows['relation_type'];?>
                                                 </td>
                                                 <td>
                                                     <?php echo $rows['username'];?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $rows['address'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['description'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['favorite_total'];?>
+                                                    <?php echo $rows['province'];?>
                                                 </td>
                                                 
                                             </tr>
                                             <tr class="spacer"></tr>
                                             <?php
+                                            }
                                             
-                                        }
                                             ?>
                                         </tbody>
                                     </table>
@@ -292,7 +290,6 @@
     <script>
         $('#myTable').ddTableFilter();
     </script>
-    
     
     <!-- Bootstrap JS-->
     <script src="vendor/bootstrap-4.1/popper.min.js"></script>

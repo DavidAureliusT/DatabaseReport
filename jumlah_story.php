@@ -1,17 +1,15 @@
 <?php 
     include_once'connect.php';
+    $query="SELECT
+     user_account.user_id,username,story.obituary_id,count(story.user_id)as total from user_account 
+    left join story on user_account.user_id=story.user_id 
+    GROUP by user_account.user_id
+    ;";
+    $result= mysqli_query($connect, $query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!--javascript tablesorter-->
-    <script src="vendor/jquery.tablesorter.js"></script>
-    <script>
-        $(document).ready( function () {
-            $("#myTable").tablesorter();
-        })
-    </script>
-
     <!-- Required meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,7 +18,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Obituary Report | Daftar Necrology</title>
+    <title>Obituary Report | Daftar User Account</title>
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -46,7 +44,6 @@
 <body class="animsition">
     <div class="page-wrapper">
         <!-- HEADER MOBILE-->
-
         <header class="header-mobile d-block d-lg-none">
             <div class="header-mobile__bar">
                 <div class="container-fluid">
@@ -205,7 +202,13 @@
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="header-wrap">
-							
+                            <form class="form-header" action="" method="POST">
+                                <input class="au-input au-input--xl" type="text" name="search"
+                                    placeholder="Search for datas &amp; reports..." />
+                                <button class="au-btn--submit" type="submit">
+                                    <i class="zmdi zmdi-search"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -219,30 +222,17 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
-                                <?php
-                                  
-                                    $query="SELECT *,
-                                        vn.nec_name AS nama_necrology,
-                                        COUNT(fn.necrology_id) as favorite_total
-                                        FROM virtual_necrology vn
-                                        INNER JOIN favorite_necrology fn
-                                        ON vn.necrology_id = fn.necrology_id
-                                        INNER JOIN user_account ua
-                                        ON ua.user_id = vn.user_id
-                                        GROUP BY fn.necrology_id";
-                                    $result=$connect->query($query);    
-                                ?>
-                                <h3 class="title-5 m-b-35">data Necrology</h3>
+                                <h3 class="title-5 m-b-35">data Jumlah Story</h3>
                                 <div class="table-responsive table-responsive-data2">
                                     <table class="table table-data2" id="myTable">
                                         <thead>
                                             <tr>
-                                                <th>necrology_id</th>
-                                                <th>nama necrology</th>
-                                                <th>nama owner</th>
-                                                <th>address</th>
-                                                <th>description</th>
-                                                <th>favorite_total</th>
+                  
+
+                                                <th>user_id</th>
+                                                <th>username</th>
+                                                <th>obituary_id</th>
+                                                <th>total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -252,29 +242,24 @@
                                                 ?>  
                                                 <tr class="tr-shadow">
                                                 <td>
-                                                    <?php echo $rows['necrology_id'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['nama_necrology'];?>
+                                                    <?php echo $rows['user_id'];?>
                                                 </td>
                                                 <td>
                                                     <?php echo $rows['username'];?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $rows['address'];?>
+                                                    <?php echo $rows['obituary_id'] ;?> 
                                                 </td>
                                                 <td>
-                                                    <?php echo $rows['description'];?>
+                                                    <?php echo $rows['total'] ;?> 
                                                 </td>
-                                                <td>
-                                                    <?php echo $rows['favorite_total'];?>
-                                                </td>
+                                               <td>
+                                                
                                                 
                                             </tr>
                                             <tr class="spacer"></tr>
                                             <?php
-                                            
-                                        }
+                                            }
                                             ?>
                                         </tbody>
                                     </table>
@@ -285,6 +270,7 @@
                     </div>
                 </div>
             </div>
+            
 
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
@@ -292,8 +278,6 @@
     <script>
         $('#myTable').ddTableFilter();
     </script>
-    
-    
     <!-- Bootstrap JS-->
     <script src="vendor/bootstrap-4.1/popper.min.js"></script>
     <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>

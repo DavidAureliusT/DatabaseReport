@@ -122,4 +122,6 @@
         minOptions: 2
     }
 
+
 })(jQuery);
+

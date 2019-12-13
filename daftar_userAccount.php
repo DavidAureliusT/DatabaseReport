@@ -162,6 +162,31 @@
                             <a href="daftar_necrology.php">
                                 <i class="fas fa-table"></i>Table Necrology</a>
                         </li>
+                        <li>
+                            <a href="daftar_necrology.php">
+                                <i class="fas fa-table"></i>Table Relation</a>
+                        </li>
+                        <li>
+                            <a href="daftar_obituary_in_necrology.php">
+                                <i class="fas fa-table"></i>Table Obituary in Necrology</a>
+                        </li>
+                        <!--from Nick-->
+                        <li>
+                            <a href="flower_obituary.php">
+                                <i class="fas fa-table"></i>Table Donasi</a>
+                        </li>
+                        <li>
+                            <a href="not_active_user.php">
+                                <i class="fas fa-table"></i>Table Not Active User</a>
+                        </li>
+                        <li >
+                            <a href="jumlah_story.php">
+                                <i class="fas fa-table"></i>Table Jumlah Story User</a>
+                        </li>
+                        <li>
+                            <a href="rememberer.php">
+                                <i class="fas fa-table"></i>Table rememberer</a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -195,36 +220,12 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
-                                <h3 class="title-5 m-b-35">data table</h3>
-                                <!-- START Fitur Filter-->
-                                <div class="table-data__tool">
-                                    <div class="table-data__tool-left">
-                                        <div class="rs-select2--light rs-select2--md">
-                                            <select class="js-select2" name="gender">
-                                                <option selected="selected">All Gender</option>
-                                                <option value="">Male</option>
-                                                <option value="">Female</option>
-                                            </select>
-                                            <div class="dropDownSelect2"></div>
-                                        </div>
-                                        <div class="rs-select2--light rs-select2--md">
-                                            <select class="js-select2" name="membership">
-                                                <option selected="selected">Guest & Member</option>
-                                                <option value="">Guest</option>
-                                                <option value="">Member</option>
-                                            </select>
-                                            <div class="dropDownSelect2"></div>
-                                        </div>
-                                        <button class="au-btn-filter">
-                                            <i class="zmdi zmdi-filter-list"></i>filters</button>
-                                    </div>
-                                </div>
-                                <!-- END Fitur Filter-->
-                                <div class="table-responsive table-responsive-data2" id="myTable">
+                                <h3 class="title-5 m-b-35">data User Account</h3>
+                                <div class="table-responsive table-responsive-data2">
+
                                     <table class="table table-data2">
                                         <thead>
                                             <tr>
-                                                <th>user_id</th>
                                                 <th>obituary_id</th>
                                                 <th>username</th>
                                                 <th>biography</th>
@@ -244,13 +245,10 @@
                                                 ?>  
                                                 <tr class="tr-shadow">
                                                 <td>
-                                                    <?php echo $rows['user_id'];?>
-                                                </td>
-                                                <td>
                                                     <?php echo $rows['obituary_id'];?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $rows['username'];?>
+                                                    <?php echo '<a href="detail_userAccount.php?id='.$rows['user_id'].'">'.$rows['username'].''?>
                                                 </td>
                                                 <td>
                                                     <?php echo $rows['biography'];?>

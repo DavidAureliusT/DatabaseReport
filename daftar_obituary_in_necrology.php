@@ -6,11 +6,7 @@
 <head>
     <!--javascript tablesorter-->
     <script src="vendor/jquery.tablesorter.js"></script>
-    <script>
-        $(document).ready( function () {
-            $("#myTable").tablesorter();
-        })
-    </script>
+    
 
     <!-- Required meta tags-->
     <meta charset="UTF-8">
@@ -20,7 +16,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Obituary Report | Daftar Necrology</title>
+    <title>Obituary Report | Daftar obituary in necrology</title>
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -155,6 +151,7 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
+                        <ul class="list-unstyled navbar__list">
                         <li>
                             <a href="daftar_userAccount.php">
                                 <i class="fas fa-table"></i>Table User Account</a>
@@ -205,7 +202,6 @@
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="header-wrap">
-							
                         </div>
                     </div>
                 </div>
@@ -219,30 +215,24 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
-                                <?php
-                                  
-                                    $query="SELECT *,
-                                        vn.nec_name AS nama_necrology,
-                                        COUNT(fn.necrology_id) as favorite_total
+                                <?php 
+                                    $query="SELECT
+                                        vn.nec_name ,
+                                        ob.fullname 
                                         FROM virtual_necrology vn
-                                        INNER JOIN favorite_necrology fn
-                                        ON vn.necrology_id = fn.necrology_id
-                                        INNER JOIN user_account ua
-                                        ON ua.user_id = vn.user_id
-                                        GROUP BY fn.necrology_id";
+                                        RIGHT JOIN necrology_obituary n_o
+                                        ON vn.necrology_id = n_o.necrology_id
+                                        LEFT JOIN obituary ob
+                                        ON n_o.obituary_id = ob.obituary_id;"; 
                                     $result=$connect->query($query);    
                                 ?>
-                                <h3 class="title-5 m-b-35">data Necrology</h3>
+                                <h3 class="title-5 m-b-35">data Obituary in Necrology</h3>
                                 <div class="table-responsive table-responsive-data2">
                                     <table class="table table-data2" id="myTable">
                                         <thead>
                                             <tr>
-                                                <th>necrology_id</th>
-                                                <th>nama necrology</th>
-                                                <th>nama owner</th>
-                                                <th>address</th>
-                                                <th>description</th>
-                                                <th>favorite_total</th>
+                                                <th>nama_necrology</th>
+                                                <th>obituary</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -252,29 +242,16 @@
                                                 ?>  
                                                 <tr class="tr-shadow">
                                                 <td>
-                                                    <?php echo $rows['necrology_id'];?>
+                                                    <?php echo $rows['nec_name'];?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $rows['nama_necrology'];?>
+                                                    <?php echo $rows['fullname'];?>
                                                 </td>
-                                                <td>
-                                                    <?php echo $rows['username'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['address'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['description'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['favorite_total'];?>
-                                                </td>
-                                                
                                             </tr>
                                             <tr class="spacer"></tr>
                                             <?php
+                                            }
                                             
-                                        }
                                             ?>
                                         </tbody>
                                     </table>
@@ -292,7 +269,6 @@
     <script>
         $('#myTable').ddTableFilter();
     </script>
-    
     
     <!-- Bootstrap JS-->
     <script src="vendor/bootstrap-4.1/popper.min.js"></script>
