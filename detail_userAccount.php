@@ -1,7 +1,7 @@
 <?php 
     include_once'connect.php';
-    $query="SELECT * FROM user_account;";
-    $result= mysqli_query($connect, $query);
+    $id = $_GET['id'];
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -218,73 +218,28 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
-                                <h3 class="title-5 m-b-35">data User Account</h3>
-                                <div class="table-responsive table-responsive-data2">
-                                    <table class="table table-data2">
-                                        <thead>
-                                            <tr>
-                                                <th>obituary_id</th>
-                                                <th>username</th>
-                                                <th>biography</th>
-                                                <th>birthdate</th>
-                                                <th>province</th>
-                                                <th>photo_profile</th>
-                                                <th>isGuest</th>
-                                                <th>gender_id</th>
-                                                <th></th>
-                                                
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            while($rows = mysqli_fetch_array($result))
-                                            {
-                                                ?>  
-                                                <tr class="tr-shadow">
-                                                <td>
-                                                    <?php echo $rows['obituary_id'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo '<a href="detail_userAccount.php?id='.$rows['user_id'].'">'.$rows['username'].''?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['biography'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['birthdate'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['province'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['photo_profile'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['isGuest'];?>
-                                                </td>
-                                                <td>
-                                                    <?php 
-                                                    if($rows['gender_id'] == 1)
-                                                    {
-                                                        ?>
-                                                        <span class="status--process"><?php echo $rows['gender_id'];?></span>
-                                                        <?php
-                                                    }else {
-                                                        ?>
-                                                        <span class="status--denied"><?php echo $rows['gender_id'];?></span>
-                                                        <?php
-                                                    }?>
-                                                </td>
-                                                
-                                            </tr>
-                                            <tr class="spacer"></tr>
-                                            <?php
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <?php
+                                $query="SELECT * FROM user_account ua INNER JOIN gender g ON ua.gender_id = g.gender_id WHERE user_id=".$id.";";
+                                $result= mysqli_query($connect, $query);
+                                while($rows = mysqli_fetch_array($result)){
+                                    ?>
+                                <h3 class="title-5 m-b-35">data <?php echo $rows['username'];?></h3>
+                                <p><b>Obituary_id:</b> <?php echo $rows['obituary_id'];?></p>
+                                <p><b>Status:</b> <?php 
+                                    if($rows['isGuest'] == 0){
+                                        echo "Guest";
+                                    }else {
+                                        echo "Member";
+                                    };?>
+                                </p>
+                                <p><b>Birthdate:</b> <?php echo $rows['birthdate'];?></p>
+                                <p><b>Province:</b> <?php echo $rows['province'];?></p>
+                                <p><b>Gender:</b> <?php echo $rows['gender_type'];?></p>
+                                <br>
+                                <p><b>Bio:</b> <?php echo $rows['biography'];?></p>
+                                    <?php
+                                }
+                                ?>
                                 <!-- END DATA TABLE -->
                             </div> 
                         </div>
