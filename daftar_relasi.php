@@ -151,7 +151,8 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                    <li>
+
+                        <li>
                             <a href="daftar_userAccount.php">
                                 <i class="fas fa-table"></i>Table User Account</a>
                         </li>
@@ -165,6 +166,7 @@
                         </li>
                         <li class="active">
                             <a href="daftar_relasi.php">
+
                                 <i class="fas fa-table"></i>Table Relation</a>
                         </li>
                         <li>
@@ -232,6 +234,7 @@
                                     $result=$connect->query($query);    
                                 ?>
                                 <h3 class="title-5 m-b-35">data relation</h3>
+
                                 <div class="table-responsive table-responsive-data2">
                                     <table class="table table-data2" id="myTable">
                                         <thead>

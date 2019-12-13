@@ -1,12 +1,7 @@
 <?php 
     include_once'connect.php';
-    $query="SELECT
-    fullname,rememberer.obituary_id,count(rmb_id) as total from rememberer
-    left join obituary on obituary.obituary_id= rememberer.obituary_id 
-    group by rememberer.obituary_id
+    $id = $_GET['id'];
     
-    ;";
-    $result= mysqli_query($connect, $query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -153,7 +148,7 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li>
+                        <li class="active">
                             <a href="daftar_userAccount.php">
                                 <i class="fas fa-table"></i>Table User Account</a>
                         </li>
@@ -161,12 +156,12 @@
                             <a href="daftar_obituary.php">
                                 <i class="fas fa-table"></i>Table Obituary</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="daftar_necrology.php">
                                 <i class="fas fa-table"></i>Table Necrology</a>
                         </li>
                         <li>
-                            <a href="daftar_relasi.php">
+                            <a href="daftar_necrology.php">
                                 <i class="fas fa-table"></i>Table Relation</a>
                         </li>
                         <li>
@@ -179,26 +174,6 @@
                                 <i class="fas fa-table"></i>Table Donasi</a>
                         </li>
                         <li>
-                            <a href="active_user.php">
-                                <i class="fas fa-table"></i>Table Active User</a>
-                        </li>
-                        <li>
-                            <a href="daftar_necrology_user.php">
-                                <i class="fas fa-table"></i>Table Necrology User</a>
-                        </li>
-                        <li class="active">
-                            <a href="jumlah_story.php">
-                                <i class="fas fa-table"></i>Table Jumlah Story User</a>
-                        </li>
-                        <li class="active">
-                            <a href="rememberer.php">
-                                <i class="fas fa-table"></i>Table rememberer</a>
-                        </li>
-                        <li>
-                        <a href="jumlah_foto.php">
-                                <i class="fas fa-table"></i>Foto User</a>
-                        </li>
-
                             <a href="not_active_user.php">
                                 <i class="fas fa-table"></i>Table Not Active User</a>
                         </li>
@@ -243,45 +218,28 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
-                                <h3 class="title-5 m-b-35">data Jumlah story</h3>
-                                <div class="table-responsive table-responsive-data2">
-                                    <table class="table table-data2" id="myTable">
-                                        <thead>
-                                            <tr>
-                  
-
-                                                <th>fullname</th>
-                                                <th>obituary_id</th>
-                                                <th>total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            while($rows = mysqli_fetch_array($result))
-                                            {
-                                                ?>  
-                                                <tr class="tr-shadow">
-                                                <td>
-                                                    <?php echo $rows['fullname'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['obituary_id'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['total'] ;?> 
-                                                </td>
-                                               
-                                               <td>
-                                                
-                                                
-                                            </tr>
-                                            <tr class="spacer"></tr>
-                                            <?php
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <?php
+                                $query="SELECT * FROM user_account ua INNER JOIN gender g ON ua.gender_id = g.gender_id WHERE user_id=".$id.";";
+                                $result= mysqli_query($connect, $query);
+                                while($rows = mysqli_fetch_array($result)){
+                                    ?>
+                                <h3 class="title-5 m-b-35">data <?php echo $rows['username'];?></h3>
+                                <p><b>Obituary_id:</b> <?php echo $rows['obituary_id'];?></p>
+                                <p><b>Status:</b> <?php 
+                                    if($rows['isGuest'] == 0){
+                                        echo "Guest";
+                                    }else {
+                                        echo "Member";
+                                    };?>
+                                </p>
+                                <p><b>Birthdate:</b> <?php echo $rows['birthdate'];?></p>
+                                <p><b>Province:</b> <?php echo $rows['province'];?></p>
+                                <p><b>Gender:</b> <?php echo $rows['gender_type'];?></p>
+                                <br>
+                                <p><b>Bio:</b> <?php echo $rows['biography'];?></p>
+                                    <?php
+                                }
+                                ?>
                                 <!-- END DATA TABLE -->
                             </div> 
                         </div>
@@ -292,10 +250,6 @@
 
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
-    <script src="vendor/ddtf.js"></script>
-    <script>
-        $('#myTable').ddTableFilter();
-    </script>
     <!-- Bootstrap JS-->
     <script src="vendor/bootstrap-4.1/popper.min.js"></script>
     <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>

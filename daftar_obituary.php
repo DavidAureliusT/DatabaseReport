@@ -1,11 +1,15 @@
 <?php 
     include_once'connect.php';
-    $query="SELECT * FROM obituary;";
-    $result= mysqli_query($connect, $query);
+    $query="SELECT *,ob.obituary_id AS 'id_obituary' FROM obituary ob INNER JOIN user_account ua ON ob.user_id = ua.user_id INNER JOIN gender g ON ob.gender_id = g.gender_id WHERE fullname LIKE '%".$_POST['t1']."%'"; //like %.$_POST.% = mengeluarkan hasil yang ada a nya , kalau %.$_POST = yang diakhiri huruf yang di postnya  
+    $result=$connect->query($query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!--javascript tablesorter-->
+    <script src="vendor/jquery.tablesorter.js"></script>
+    
+
     <!-- Required meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -148,7 +152,7 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                    <li>
+                        <li>
                             <a href="daftar_userAccount.php">
                                 <i class="fas fa-table"></i>Table User Account</a>
                         </li>
@@ -161,13 +165,8 @@
                                 <i class="fas fa-table"></i>Table Necrology</a>
                         </li>
                         <li>
-<<<<<<< Updated upstream
-                        <a href="flower_obituary.php">
-                                <i class="fas fa-table"></i>Table Donasi</a>
-=======
                             <a href="daftar_relasi.php">
                                 <i class="fas fa-table"></i>Table Relation</a>
->>>>>>> Stashed changes
                         </li>
                         <li>
                             <a href="active_user.php">
@@ -178,6 +177,23 @@
                                 <i class="fas fa-table"></i>Table Necrology User</a>
                         </li>
                         <li>
+                            <a href="daftar_necrology.php">
+                                <i class="fas fa-table"></i>Table Relation</a>
+                        </li>
+                        <li>
+                            <a href="daftar_obituary_in_necrology.php">
+                                <i class="fas fa-table"></i>Table Obituary in Necrology</a>
+                        </li>
+                        <!--from Nick-->
+                        <li>
+                            <a href="flower_obituary.php">
+                                <i class="fas fa-table"></i>Table Donasi</a>
+                        </li>
+                        <li>
+                            <a href="not_active_user.php">
+                                <i class="fas fa-table"></i>Table Not Active User</a>
+                        </li>
+                        <li>
                             <a href="jumlah_story.php">
                                 <i class="fas fa-table"></i>Table Jumlah Story User</a>
                         </li>
@@ -185,13 +201,11 @@
                             <a href="rememberer.php">
                                 <i class="fas fa-table"></i>Table rememberer</a>
                         </li>
-<<<<<<< Updated upstream
-=======
+
                         <li>
                         <a href="jumlah_foto.php">
                                 <i class="fas fa-table"></i>Foto User</a>
                         </li>
->>>>>>> Stashed changes
                     </ul>
                 </nav>
             </div>
@@ -205,10 +219,10 @@
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="header-wrap">
-                            <form class="form-header" action="" method="POST">
-                                <input class="au-input au-input--xl" type="text" name="search"
-                                    placeholder="Search for datas &amp; reports..." />
-                                <button class="au-btn--submit" type="submit">
+                            <form class="form-header" action="" method="POST" enctype="multipart/form-data">
+                                <input class="au-input au-input--xl" type="text" name="t1"
+                                    placeholder="Search by name.." />
+                                <button class="au-btn--submit" type="submit" name="submit4" value="search">
                                     <i class="zmdi zmdi-search"></i>
                                 </button>
                             </form>
@@ -225,20 +239,22 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
-                                <h3 class="title-5 m-b-35">data table</h3>
+                                <?php
+                                if(isset($_POST["submit4"])){  
+                                    $query="SELECT *,ob.obituary_id AS 'id_obituary' FROM obituary ob INNER JOIN user_account ua ON ob.user_id = ua.user_id INNER JOIN gender g ON ob.gender_id = g.gender_id WHERE fullname LIKE '%".$_POST['t1']."%'"; //like %.$_POST.% = mengeluarkan hasil yang ada a nya , kalau %.$_POST = yang diakhiri huruf yang di postnya  
+                                    $result=$connect->query($query);    
+                                ?>
+                                <h3 class="title-5 m-b-35">data Obituary</h3>
                                 <div class="table-responsive table-responsive-data2">
-                                    <table class="table table-data2">
+                                    <table class="table table-data2" id="myTable">
                                         <thead>
                                             <tr>
                                                 <th>obituary_id</th>
-                                                <th>gender_id</th>
-                                                <th>maintain_by_id</th>
+                                                <th>gender</th>
+                                                <th>owner(username)</th>
                                                 <th>biography</th>
                                                 <th>fullname</th>
                                                 <th>birthdate</th>
-<<<<<<< Updated upstream
-                                                <th>nation</th>
-=======
                                                 <th>region</th>
                                                 <th>death_date</th>
                                                 <th>death_location</th>
@@ -246,6 +262,7 @@
                                                 <th></th>
                                             </tr>
                                         </thead>
+
                                         <tbody>
                                             <?php
                                             while($rows = mysqli_fetch_array($result))
@@ -315,7 +332,6 @@
                                                 <th>fullname</th>
                                                 <th>birthdate</th>
                                                 <th>region</th>
->>>>>>> Stashed changes
                                                 <th>death_date</th>
                                                 <th>death_location</th>
                                                 <th>last_edited_date</th>
@@ -329,23 +345,23 @@
                                                 ?>  
                                                 <tr class="tr-shadow">
                                                 <td>
-                                                    <?php echo $rows['obituary_id'];?>
+                                                    <?php echo $rows['id_obituary'];?>
                                                 </td>
                                                 <td>
                                                     <?php 
-                                                    if($rows['gender_id'] == 1)
+                                                    if($rows['gender_type'] == "Male")
                                                     {
                                                         ?>
-                                                        <span class="status--process"><?php echo $rows['gender_id'];?></span>
+                                                        <span class="status--process"><?php echo $rows['gender_type'];?></span>
                                                         <?php
                                                     }else {
                                                         ?>
-                                                        <span class="status--denied"><?php echo $rows['gender_id'];?></span>
+                                                        <span class="status--denied"><?php echo $rows['gender_type'];?></span>
                                                         <?php
                                                     }?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $rows['user_id'];?>
+                                                    <?php echo $rows['username'];?>
                                                 </td>
                                                 <td class="desc">
                                                     <?php echo $rows['biography'];?>
@@ -372,6 +388,8 @@
                                             <tr class="spacer"></tr>
                                             <?php
                                             }
+                                            unset($_POST["submit4"]);
+                                        }
                                             ?>
                                         </tbody>
                                     </table>
@@ -382,10 +400,13 @@
                     </div>
                 </div>
             </div>
-            
-
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
+    <script src="vendor/ddtf.js"></script>
+    <script>
+        $('#myTable').ddTableFilter();
+    </script>
+    
     <!-- Bootstrap JS-->
     <script src="vendor/bootstrap-4.1/popper.min.js"></script>
     <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>

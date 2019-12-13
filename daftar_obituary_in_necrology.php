@@ -1,16 +1,13 @@
 <?php 
     include_once'connect.php';
-    $query="SELECT
-    fullname,rememberer.obituary_id,count(rmb_id) as total from rememberer
-    left join obituary on obituary.obituary_id= rememberer.obituary_id 
-    group by rememberer.obituary_id
-    
-    ;";
-    $result= mysqli_query($connect, $query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!--javascript tablesorter-->
+    <script src="vendor/jquery.tablesorter.js"></script>
+    
+
     <!-- Required meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -19,7 +16,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Obituary Report | Daftar User Account</title>
+    <title>Obituary Report | Daftar obituary in necrology</title>
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -45,6 +42,7 @@
 <body class="animsition">
     <div class="page-wrapper">
         <!-- HEADER MOBILE-->
+
         <header class="header-mobile d-block d-lg-none">
             <div class="header-mobile__bar">
                 <div class="container-fluid">
@@ -153,6 +151,7 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
+                        <ul class="list-unstyled navbar__list">
                         <li>
                             <a href="daftar_userAccount.php">
                                 <i class="fas fa-table"></i>Table User Account</a>
@@ -166,7 +165,7 @@
                                 <i class="fas fa-table"></i>Table Necrology</a>
                         </li>
                         <li>
-                            <a href="daftar_relasi.php">
+                            <a href="daftar_necrology.php">
                                 <i class="fas fa-table"></i>Table Relation</a>
                         </li>
                         <li>
@@ -179,26 +178,6 @@
                                 <i class="fas fa-table"></i>Table Donasi</a>
                         </li>
                         <li>
-                            <a href="active_user.php">
-                                <i class="fas fa-table"></i>Table Active User</a>
-                        </li>
-                        <li>
-                            <a href="daftar_necrology_user.php">
-                                <i class="fas fa-table"></i>Table Necrology User</a>
-                        </li>
-                        <li class="active">
-                            <a href="jumlah_story.php">
-                                <i class="fas fa-table"></i>Table Jumlah Story User</a>
-                        </li>
-                        <li class="active">
-                            <a href="rememberer.php">
-                                <i class="fas fa-table"></i>Table rememberer</a>
-                        </li>
-                        <li>
-                        <a href="jumlah_foto.php">
-                                <i class="fas fa-table"></i>Foto User</a>
-                        </li>
-
                             <a href="not_active_user.php">
                                 <i class="fas fa-table"></i>Table Not Active User</a>
                         </li>
@@ -223,13 +202,6 @@
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="header-wrap">
-                            <form class="form-header" action="" method="POST">
-                                <input class="au-input au-input--xl" type="text" name="search"
-                                    placeholder="Search for datas &amp; reports..." />
-                                <button class="au-btn--submit" type="submit">
-                                    <i class="zmdi zmdi-search"></i>
-                                </button>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -243,16 +215,24 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
-                                <h3 class="title-5 m-b-35">data Jumlah story</h3>
+                                <?php 
+                                    $query="SELECT
+                                        vn.nec_name ,
+                                        ob.fullname 
+                                        FROM virtual_necrology vn
+                                        RIGHT JOIN necrology_obituary n_o
+                                        ON vn.necrology_id = n_o.necrology_id
+                                        LEFT JOIN obituary ob
+                                        ON n_o.obituary_id = ob.obituary_id;"; 
+                                    $result=$connect->query($query);    
+                                ?>
+                                <h3 class="title-5 m-b-35">data Obituary in Necrology</h3>
                                 <div class="table-responsive table-responsive-data2">
                                     <table class="table table-data2" id="myTable">
                                         <thead>
                                             <tr>
-                  
-
-                                                <th>fullname</th>
-                                                <th>obituary_id</th>
-                                                <th>total</th>
+                                                <th>nama_necrology</th>
+                                                <th>obituary</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -262,22 +242,16 @@
                                                 ?>  
                                                 <tr class="tr-shadow">
                                                 <td>
+                                                    <?php echo $rows['nec_name'];?>
+                                                </td>
+                                                <td>
                                                     <?php echo $rows['fullname'];?>
                                                 </td>
-                                                <td>
-                                                    <?php echo $rows['obituary_id'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['total'] ;?> 
-                                                </td>
-                                               
-                                               <td>
-                                                
-                                                
                                             </tr>
                                             <tr class="spacer"></tr>
                                             <?php
                                             }
+                                            
                                             ?>
                                         </tbody>
                                     </table>
@@ -288,7 +262,6 @@
                     </div>
                 </div>
             </div>
-            
 
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
@@ -296,6 +269,7 @@
     <script>
         $('#myTable').ddTableFilter();
     </script>
+    
     <!-- Bootstrap JS-->
     <script src="vendor/bootstrap-4.1/popper.min.js"></script>
     <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>

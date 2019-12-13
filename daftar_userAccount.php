@@ -2,6 +2,8 @@
     include_once'connect.php';
     $query="SELECT * FROM user_account;";
     $result= mysqli_query($connect, $query);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -148,11 +150,7 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-<<<<<<< Updated upstream
                         <li class="active">
-=======
-                    <li class="active">
->>>>>>> Stashed changes
                             <a href="daftar_userAccount.php">
                                 <i class="fas fa-table"></i>Table User Account</a>
                         </li>
@@ -165,13 +163,8 @@
                                 <i class="fas fa-table"></i>Table Necrology</a>
                         </li>
                         <li>
-<<<<<<< Updated upstream
-                        <a href="flower_obituary.php">
-                                <i class="fas fa-table"></i>Table Donasi</a>
-=======
                             <a href="daftar_relasi.php">
                                 <i class="fas fa-table"></i>Table Relation</a>
->>>>>>> Stashed changes
                         </li>
                         <li>
                             <a href="active_user.php">
@@ -182,6 +175,23 @@
                                 <i class="fas fa-table"></i>Table Necrology User</a>
                         </li>
                         <li>
+                            <a href="daftar_necrology.php">
+                                <i class="fas fa-table"></i>Table Relation</a>
+                        </li>
+                        <li>
+                            <a href="daftar_obituary_in_necrology.php">
+                                <i class="fas fa-table"></i>Table Obituary in Necrology</a>
+                        </li>
+                        <!--from Nick-->
+                        <li>
+                            <a href="flower_obituary.php">
+                                <i class="fas fa-table"></i>Table Donasi</a>
+                        </li>
+                        <li>
+                            <a href="not_active_user.php">
+                                <i class="fas fa-table"></i>Table Not Active User</a>
+                        </li>
+                        <li >
                             <a href="jumlah_story.php">
                                 <i class="fas fa-table"></i>Table Jumlah Story User</a>
                         </li>
@@ -226,12 +236,12 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
-                                <h3 class="title-5 m-b-35">data table</h3>
+                                <h3 class="title-5 m-b-35">data User Account</h3>
                                 <div class="table-responsive table-responsive-data2">
+
                                     <table class="table table-data2">
                                         <thead>
                                             <tr>
-                                                <th>user_id</th>
                                                 <th>obituary_id</th>
                                                 <th>username</th>
                                                 <th>biography</th>
@@ -241,7 +251,6 @@
                                                 <th>isGuest</th>
                                                 <th>gender_id</th>
                                                 <th></th>
-                                                
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -252,13 +261,10 @@
                                                 ?>  
                                                 <tr class="tr-shadow">
                                                 <td>
-                                                    <?php echo $rows['user_id'];?>
-                                                </td>
-                                                <td>
                                                     <?php echo $rows['obituary_id'];?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $rows['username'];?>
+                                                    <?php echo '<a href="detail_userAccount.php?id='.$rows['user_id'].'">'.$rows['username'].''?>
                                                 </td>
                                                 <td>
                                                     <?php echo $rows['biography'];?>
@@ -307,6 +313,10 @@
 
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
+    <script src="vendor/ddtf.js"></script>
+    <script>
+        $('#myTable').ddTableFilter();
+    </script>
     <!-- Bootstrap JS-->
     <script src="vendor/bootstrap-4.1/popper.min.js"></script>
     <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>

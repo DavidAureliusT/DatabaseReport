@@ -152,7 +152,9 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                    <li>
+
+                        <li>
+
                             <a href="daftar_userAccount.php">
                                 <i class="fas fa-table"></i>Table User Account</a>
                         </li>
@@ -160,12 +162,11 @@
                             <a href="daftar_obituary.php">
                                 <i class="fas fa-table"></i>Table Obituary</a>
                         </li>
-<<<<<<< Updated upstream
                         <li>
                             <a href="daftar_necrology.php">
                                 <i class="fas fa-table"></i>Table Necrology</a>
-=======
                         <li>
+                        <li class="active">
                             <a href="daftar_necrology.php">
                                 <i class="fas fa-table"></i>Table Necrology</a>
                         </li>
@@ -176,8 +177,8 @@
                         <li>
                             <a href="daftar_obituary_in_necrology.php">
                                 <i class="fas fa-table"></i>Table Obituary in Necrology</a>
->>>>>>> Stashed changes
                         </li>
+                        <!--from Nick-->
                         <li>
                             <a href="flower_obituary.php">
                                 <i class="fas fa-table"></i>Table Donasi</a>
@@ -191,6 +192,10 @@
                                 <i class="fas fa-table"></i>Table Necrology User</a>
                         </li>
                         <li class="active">
+                            <a href="not_active_user.php">
+                                <i class="fas fa-table"></i>Table Not Active User</a>
+                        </li>
+                        <li >
                             <a href="jumlah_story.php">
                                 <i class="fas fa-table"></i>Table Jumlah Story User</a>
                         </li>
@@ -198,6 +203,7 @@
                             <a href="rememberer.php">
                                 <i class="fas fa-table"></i>Table rememberer</a>
                         </li>
+
                         <li>
                         <a href="jumlah_foto.php">
                                 <i class="fas fa-table"></i>Foto User</a>
@@ -235,13 +241,11 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
-                                <h3 class="title-5 m-b-35">data table</h3>
+                                <h3 class="title-5 m-b-35">data Jumlah Story</h3>
                                 <div class="table-responsive table-responsive-data2">
-                                    <table class="table table-data2">
+                                    <table class="table table-data2" id="myTable">
                                         <thead>
                                             <tr>
-                  
-
                                                 <th>user_id</th>
                                                 <th>username</th>
                                                 <th>obituary_id</th>
@@ -287,6 +291,11 @@
 
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
+
+    <script src="vendor/ddtf.js"></script>
+    <script>
+        $('#myTable').ddTableFilter();
+    </script>
     <!-- Bootstrap JS-->
     <script src="vendor/bootstrap-4.1/popper.min.js"></script>
     <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>

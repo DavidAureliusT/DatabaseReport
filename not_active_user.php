@@ -1,11 +1,17 @@
 <?php 
     include_once'connect.php';
-    $query="SELECT
-    fullname,rememberer.obituary_id,count(rmb_id) as total from rememberer
-    left join obituary on obituary.obituary_id= rememberer.obituary_id 
-    group by rememberer.obituary_id
-    
-    ;";
+    $query="SELECT * from user_account where user_id not in (
+select user_id from virtual_necrology
+union all select user_id from story
+union all select user_id from story_comment
+union all select user_id from rememberer
+union all select user_id from relation
+union all select user_id from photo
+union all select user_id from flower
+union all select user_id from favorite_necrology
+union all select user_id from testimony
+union all select user_id from obituary)
+;";
     $result= mysqli_query($connect, $query);
 ?>
 <!DOCTYPE html>
@@ -19,7 +25,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Obituary Report | Daftar User Account</title>
+    <title>Obituary Report | Daftar not active</title>
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -166,7 +172,7 @@
                                 <i class="fas fa-table"></i>Table Necrology</a>
                         </li>
                         <li>
-                            <a href="daftar_relasi.php">
+                            <a href="daftar_necrology.php">
                                 <i class="fas fa-table"></i>Table Relation</a>
                         </li>
                         <li>
@@ -179,26 +185,6 @@
                                 <i class="fas fa-table"></i>Table Donasi</a>
                         </li>
                         <li>
-                            <a href="active_user.php">
-                                <i class="fas fa-table"></i>Table Active User</a>
-                        </li>
-                        <li>
-                            <a href="daftar_necrology_user.php">
-                                <i class="fas fa-table"></i>Table Necrology User</a>
-                        </li>
-                        <li class="active">
-                            <a href="jumlah_story.php">
-                                <i class="fas fa-table"></i>Table Jumlah Story User</a>
-                        </li>
-                        <li class="active">
-                            <a href="rememberer.php">
-                                <i class="fas fa-table"></i>Table rememberer</a>
-                        </li>
-                        <li>
-                        <a href="jumlah_foto.php">
-                                <i class="fas fa-table"></i>Foto User</a>
-                        </li>
-
                             <a href="not_active_user.php">
                                 <i class="fas fa-table"></i>Table Not Active User</a>
                         </li>
@@ -243,16 +229,23 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
-                                <h3 class="title-5 m-b-35">data Jumlah story</h3>
+                                <h3 class="title-5 m-b-35">data not active</h3>
                                 <div class="table-responsive table-responsive-data2">
                                     <table class="table table-data2" id="myTable">
                                         <thead>
                                             <tr>
-                  
-
-                                                <th>fullname</th>
+                                                <th>user_id</th>
                                                 <th>obituary_id</th>
-                                                <th>total</th>
+                                                <th>biography</th>
+                                                <th>username</th>
+                                                <th>birthdate</th>
+                                                <th>province</th>
+                                                <th>photo_profile</th>
+                                                <th>isGuest</th>
+                                                <th>gender_id</th>
+                                                <th></th>
+                                                
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -262,16 +255,32 @@
                                                 ?>  
                                                 <tr class="tr-shadow">
                                                 <td>
-                                                    <?php echo $rows['fullname'];?>
+                                                    <?php echo $rows['user_id'];?>
                                                 </td>
                                                 <td>
                                                     <?php echo $rows['obituary_id'];?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $rows['total'] ;?> 
+                                                    <?php echo $rows['biography'];?>
                                                 </td>
-                                               
-                                               <td>
+                                                <td>
+                                                    <?php echo $rows['username'];?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows['birthdate'];?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows['province'];?>
+                                                </td>
+                                                <td>
+                                                <img src ="<?php echo $rows['photo_profile']; ?>" />
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows['isGuest'];?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows['gender_id'];?>
+                                                </td>
                                                 
                                                 
                                             </tr>
@@ -292,10 +301,6 @@
 
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
-    <script src="vendor/ddtf.js"></script>
-    <script>
-        $('#myTable').ddTableFilter();
-    </script>
     <!-- Bootstrap JS-->
     <script src="vendor/bootstrap-4.1/popper.min.js"></script>
     <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
