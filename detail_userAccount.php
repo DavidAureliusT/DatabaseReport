@@ -235,11 +235,42 @@
                                 <p><b>Birthdate:</b> <?php echo $rows['birthdate'];?></p>
                                 <p><b>Province:</b> <?php echo $rows['province'];?></p>
                                 <p><b>Gender:</b> <?php echo $rows['gender_type'];?></p>
-                                <br>
                                 <p><b>Bio:</b> <?php echo $rows['biography'];?></p>
                                     <?php
                                 }
                                 ?>
+                                <br>
+                                <h4>Tabel Necrology</h4>
+                                <br>
+                                <!--tabel necrology milik user-->
+                                <?php
+                                    //untuk SQLnya
+                                    $query="SELECT * FROM virtual_necrology WHERE user_id=1;";
+                                    $result= mysqli_query($connect, $query);?>
+                                <table class="table table-borderless table-data3" >
+                                    <thead>
+                                        <tr>
+                                            <th>Necrology name</th>
+                                            <th>Address</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <?php
+                                        while($rows = mysqli_fetch_array($result)){
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $rows['nec_name'];?></td>
+                                            <td><?php echo $rows['address'];?></td>
+                                            <td><?php echo $rows['description'];?></td>
+                                        </tr>
+                                <?php
+                                }
+                                ?>
+                                    </tbody>
+                                </table>
+                                
                                 <!-- END DATA TABLE -->
                             </div> 
                         </div>
