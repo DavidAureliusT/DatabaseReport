@@ -153,7 +153,7 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li>
+                    <li>
                             <a href="daftar_userAccount.php">
                                 <i class="fas fa-table"></i>Table User Account</a>
                         </li>
@@ -161,9 +161,23 @@
                             <a href="daftar_obituary.php">
                                 <i class="fas fa-table"></i>Table Obituary</a>
                         </li>
+<<<<<<< Updated upstream
                         <li>
                             <a href="daftar_necrology.php">
                                 <i class="fas fa-table"></i>Table Necrology</a>
+=======
+                        <li>
+                            <a href="daftar_necrology.php">
+                                <i class="fas fa-table"></i>Table Necrology</a>
+                        </li>
+                        <li>
+                            <a href="daftar_relasi.php">
+                                <i class="fas fa-table"></i>Table Relation</a>
+                        </li>
+                        <li>
+                            <a href="daftar_obituary_in_necrology.php">
+                                <i class="fas fa-table"></i>Table Obituary in Necrology</a>
+>>>>>>> Stashed changes
                         </li>
                         <li>
                             <a href="flower_obituary.php">
@@ -174,10 +188,13 @@
                                 <i class="fas fa-table"></i>Table Active User</a>
                         </li>
                         <li>
+<<<<<<< Updated upstream
                             <a href="daftar_necrology_user.php">
                                 <i class="fas fa-table"></i>Table Necrology User</a>
                         </li>
                         <li class="active">
+=======
+>>>>>>> Stashed changes
                             <a href="jumlah_story.php">
                                 <i class="fas fa-table"></i>Table Jumlah Story User</a>
                         </li>
@@ -185,7 +202,10 @@
                             <a href="rememberer.php">
                                 <i class="fas fa-table"></i>Table rememberer</a>
                         </li>
-                        
+                        <li>
+                        <a href="jumlah_foto.php">
+                                <i class="fas fa-table"></i>Foto User</a>
+                        </li>
                     </ul>
                 </nav>
             </div>

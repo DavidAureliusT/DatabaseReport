@@ -169,12 +169,21 @@
                                 <i class="fas fa-table"></i>Table Necrology</a>
                         </li>
                         <li>
+<<<<<<< Updated upstream:daftar_necrology_user.php
                         <a href="flower_obituary.php">
                                 <i class="fas fa-table"></i>Table Donasi</a>
                         </li>
                         <li>
                             <a href="active_user.php">
                                 <i class="fas fa-table"></i>Table Active User</a>
+=======
+                            <a href="daftar_relasi.php">
+                                <i class="fas fa-table"></i>Table Relation</a>
+                        </li>
+                        <li class="active">
+                            <a href="daftar_obituary_in_necrology.php">
+                                <i class="fas fa-table"></i>Table Obituary in Necrology</a>
+>>>>>>> Stashed changes:daftar_obituary_in_necrology.php
                         </li>
                         <li class="active">
                             <a href="daftar_necrology_user.php">
@@ -187,6 +196,10 @@
                         <li>
                             <a href="rememberer.php">
                                 <i class="fas fa-table"></i>Table rememberer</a>
+                        </li>
+                        <li>
+                        <a href="jumlah_foto.php">
+                                <i class="fas fa-table"></i>Foto User</a>
                         </li>
                     </ul>
                 </nav>

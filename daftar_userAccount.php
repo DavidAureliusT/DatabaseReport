@@ -148,7 +148,11 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
+<<<<<<< Updated upstream
                         <li class="active">
+=======
+                    <li class="active">
+>>>>>>> Stashed changes
                             <a href="daftar_userAccount.php">
                                 <i class="fas fa-table"></i>Table User Account</a>
                         </li>
@@ -161,8 +165,13 @@
                                 <i class="fas fa-table"></i>Table Necrology</a>
                         </li>
                         <li>
+<<<<<<< Updated upstream
                         <a href="flower_obituary.php">
                                 <i class="fas fa-table"></i>Table Donasi</a>
+=======
+                            <a href="daftar_relasi.php">
+                                <i class="fas fa-table"></i>Table Relation</a>
+>>>>>>> Stashed changes
                         </li>
                         <li>
                             <a href="active_user.php">
@@ -179,6 +188,10 @@
                         <li>
                             <a href="rememberer.php">
                                 <i class="fas fa-table"></i>Table rememberer</a>
+                        </li>
+                        <li>
+                        <a href="jumlah_foto.php">
+                                <i class="fas fa-table"></i>Foto User</a>
                         </li>
                     </ul>
                 </nav>

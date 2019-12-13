@@ -159,7 +159,7 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li>
+                    <li>
                             <a href="daftar_userAccount.php">
                                 <i class="fas fa-table"></i>Table User Account</a>
                         </li>
@@ -172,8 +172,13 @@
                                 <i class="fas fa-table"></i>Table Necrology</a>
                         </li>
                         <li>
+<<<<<<< Updated upstream:active_user.php
                         <a href="flower_obituary.php">
                                 <i class="fas fa-table"></i>Table Donasi</a>
+=======
+                            <a href="daftar_relasi.php">
+                                <i class="fas fa-table"></i>Table Relation</a>
+>>>>>>> Stashed changes:not_active_user.php
                         </li>
                         <li class="active">
                             <a href="active_user.php">
@@ -183,6 +188,13 @@
                             <a href="daftar_necrology_user.php">
                                 <i class="fas fa-table"></i>Table Necrology User</a>
                         </li>
+<<<<<<< Updated upstream:active_user.php
+=======
+                        <li class="active">
+                            <a href="not_active_user.php">
+                                <i class="fas fa-table"></i>Table Not Active User</a>
+                        </li>
+>>>>>>> Stashed changes:not_active_user.php
                         <li>
                             <a href="jumlah_story.php">
                                 <i class="fas fa-table"></i>Table Jumlah Story User</a>
@@ -190,6 +202,10 @@
                         <li>
                             <a href="rememberer.php">
                                 <i class="fas fa-table"></i>Table rememberer</a>
+                        </li>
+                        <li>
+                        <a href="jumlah_foto.php">
+                                <i class="fas fa-table"></i>Foto User</a>
                         </li>
                     </ul>
                 </nav>

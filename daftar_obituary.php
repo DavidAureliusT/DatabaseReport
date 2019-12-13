@@ -148,7 +148,7 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li>
+                    <li>
                             <a href="daftar_userAccount.php">
                                 <i class="fas fa-table"></i>Table User Account</a>
                         </li>
@@ -161,8 +161,13 @@
                                 <i class="fas fa-table"></i>Table Necrology</a>
                         </li>
                         <li>
+<<<<<<< Updated upstream
                         <a href="flower_obituary.php">
                                 <i class="fas fa-table"></i>Table Donasi</a>
+=======
+                            <a href="daftar_relasi.php">
+                                <i class="fas fa-table"></i>Table Relation</a>
+>>>>>>> Stashed changes
                         </li>
                         <li>
                             <a href="active_user.php">
@@ -180,6 +185,13 @@
                             <a href="rememberer.php">
                                 <i class="fas fa-table"></i>Table rememberer</a>
                         </li>
+<<<<<<< Updated upstream
+=======
+                        <li>
+                        <a href="jumlah_foto.php">
+                                <i class="fas fa-table"></i>Foto User</a>
+                        </li>
+>>>>>>> Stashed changes
                     </ul>
                 </nav>
             </div>
@@ -224,7 +236,86 @@
                                                 <th>biography</th>
                                                 <th>fullname</th>
                                                 <th>birthdate</th>
+<<<<<<< Updated upstream
                                                 <th>nation</th>
+=======
+                                                <th>region</th>
+                                                <th>death_date</th>
+                                                <th>death_location</th>
+                                                <th>last_edited_date</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            while($rows = mysqli_fetch_array($result))
+                                            {
+                                                ?>  
+                                                <tr class="tr-shadow">
+                                                <td>
+                                                    <?php echo $rows['id_obituary'];?>
+                                                </td>
+                                                <td>
+                                                    <?php 
+                                                    if($rows['gender_type'] == "Male")
+                                                    {
+                                                        ?>
+                                                        <span class="status--process"><?php echo $rows['gender_type'];?></span>
+                                                        <?php
+                                                    }else {
+                                                        ?>
+                                                        <span class="status--denied"><?php echo $rows['gender_type'];?></span>
+                                                        <?php
+                                                    }?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows['username'];?>
+                                                </td>
+                                                <td class="desc">
+                                                    <?php echo $rows['biography'];?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows['fullname'];?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows['birthdate'];?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows['region'];?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows['death_date'];?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows['death_location'];?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows['last_edited'];?>
+                                                </td>
+                                            </tr>
+                                            <tr class="spacer"></tr>
+                                            <?php
+                                            }
+                                            unset($_POST["submit4"]);
+                                        }
+                                      
+                               else{  
+                                    $query="SELECT *,ob.obituary_id AS 'id_obituary' FROM obituary ob INNER JOIN user_account ua ON ob.user_id = ua.user_id INNER JOIN gender g ON ob.gender_id = g.gender_id" ;  
+                                    $result=$connect->query($query);    
+                                ?>
+                                <h3 class="title-5 m-b-35">data Obituary</h3>
+                                <div class="table-responsive table-responsive-data2">
+                                    <table class="table table-data2" id="myTable">
+                                        <thead>
+                                            <tr>
+                                                <th>obituary_id</th>
+                                                <th>gender</th>
+                                                <th>owner(username)</th>
+                                                <th>biography</th>
+                                                <th>fullname</th>
+                                                <th>birthdate</th>
+                                                <th>region</th>
+>>>>>>> Stashed changes
                                                 <th>death_date</th>
                                                 <th>death_location</th>
                                                 <th>last_edited_date</th>
