@@ -151,6 +151,7 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
+
                         <li>
                             <a href="daftar_userAccount.php">
                                 <i class="fas fa-table"></i>Table User Account</a>
@@ -159,12 +160,13 @@
                             <a href="daftar_obituary.php">
                                 <i class="fas fa-table"></i>Table Obituary</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="daftar_necrology.php">
                                 <i class="fas fa-table"></i>Table Necrology</a>
                         </li>
-                        <li>
-                            <a href="daftar_necrology.php">
+                        <li class="active">
+                            <a href="daftar_relasi.php">
+
                                 <i class="fas fa-table"></i>Table Relation</a>
                         </li>
                         <li>
@@ -187,6 +189,10 @@
                         <li>
                             <a href="rememberer.php">
                                 <i class="fas fa-table"></i>Table rememberer</a>
+                        </li>
+                        <li>
+                        <a href="jumlah_foto.php">
+                                <i class="fas fa-table"></i>Foto User</a>
                         </li>
                     </ul>
                 </nav>
@@ -227,7 +233,8 @@
                                     //like %.$_POST.% = mengeluarkan hasil yang ada a nya , kalau %.$_POST = yang diakhiri huruf yang di postnya  
                                     $result=$connect->query($query);    
                                 ?>
-                                <h3 class="title-5 m-b-35">data Obituary</h3>
+                                <h3 class="title-5 m-b-35">data relation</h3>
+
                                 <div class="table-responsive table-responsive-data2">
                                     <table class="table table-data2" id="myTable">
                                         <thead>

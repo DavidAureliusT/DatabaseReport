@@ -44,7 +44,6 @@
 <body class="animsition">
     <div class="page-wrapper">
         <!-- HEADER MOBILE-->
-
         <header class="header-mobile d-block d-lg-none">
             <div class="header-mobile__bar">
                 <div class="container-fluid">
@@ -157,13 +156,25 @@
                             <a href="daftar_userAccount.php">
                                 <i class="fas fa-table"></i>Table User Account</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="daftar_obituary.php">
                                 <i class="fas fa-table"></i>Table Obituary</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="daftar_necrology.php">
                                 <i class="fas fa-table"></i>Table Necrology</a>
+                        </li>
+                        <li>
+                            <a href="daftar_relasi.php">
+                                <i class="fas fa-table"></i>Table Relation</a>
+                        </li>
+                        <li>
+                            <a href="active_user.php">
+                                <i class="fas fa-table"></i>Table Active User</a>
+                        </li>
+                        <li>
+                            <a href="daftar_necrology_user.php">
+                                <i class="fas fa-table"></i>Table Necrology User</a>
                         </li>
                         <li>
                             <a href="daftar_necrology.php">
@@ -182,7 +193,7 @@
                             <a href="not_active_user.php">
                                 <i class="fas fa-table"></i>Table Not Active User</a>
                         </li>
-                        <li >
+                        <li>
                             <a href="jumlah_story.php">
                                 <i class="fas fa-table"></i>Table Jumlah Story User</a>
                         </li>
@@ -190,7 +201,11 @@
                             <a href="rememberer.php">
                                 <i class="fas fa-table"></i>Table rememberer</a>
                         </li>
-                        
+
+                        <li>
+                        <a href="jumlah_foto.php">
+                                <i class="fas fa-table"></i>Foto User</a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -204,7 +219,6 @@
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="header-wrap">
-						
                             <form class="form-header" action="" method="POST" enctype="multipart/form-data">
                                 <input class="au-input au-input--xl" type="text" name="t1"
                                     placeholder="Search by name.." />
@@ -212,7 +226,6 @@
                                     <i class="zmdi zmdi-search"></i>
                                 </button>
                             </form>
-							
                         </div>
                     </div>
                 </div>
@@ -249,6 +262,67 @@
                                                 <th></th>
                                             </tr>
                                         </thead>
+
+                                        <tbody>
+                                            <?php
+                                            while($rows = mysqli_fetch_array($result))
+                                            {
+                                                ?>  
+                                                <tr class="tr-shadow">
+                                                <td>
+                                                    <?php echo $rows['id_obituary'];?>
+                                                </td>
+                                                <td>
+                                                    <?php 
+                                                    if($rows['gender_type'] == "Male")
+                                                    {
+                                                        ?>
+                                                        <span class="status--process"><?php echo $rows['gender_type'];?></span>
+                                                        <?php
+                                                    }else {
+                                                        ?>
+                                                        <span class="status--denied"><?php echo $rows['gender_type'];?></span>
+                                                        <?php
+                                                    }?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows['username'];?>
+                                                </td>
+                                                <td class="desc">
+                                                    <?php echo $rows['biography'];?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows['fullname'];?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows['birthdate'];?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows['region'];?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows['death_date'];?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows['death_location'];?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $rows['last_edited'];?>
+                                                </td>
+                                            </tr>
+                                            <tr class="spacer"></tr>
+                                            <?php
+                                            }
+                                            unset($_POST["submit4"]);
+                                        }
+                                      
+                               else{  
+                                    $query="SELECT *,ob.obituary_id AS 'id_obituary' FROM obituary ob INNER JOIN user_account ua ON ob.user_id = ua.user_id INNER JOIN gender g ON ob.gender_id = g.gender_id" ;  
+                                    $result=$connect->query($query);    
+                                ?>
+                                <h3 class="title-5 m-b-35">data Obituary</h3>
+                                <div class="table-responsive table-responsive-data2">
+                                    <table class="table table-data2" id="myTable">
                                         <thead>
                                             <tr>
                                                 <th>obituary_id</th>
@@ -326,7 +400,6 @@
                     </div>
                 </div>
             </div>
-
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
     <script src="vendor/ddtf.js"></script>

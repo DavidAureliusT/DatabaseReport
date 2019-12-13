@@ -1,10 +1,9 @@
 <?php 
     include_once'connect.php';
     $query="SELECT
-    fullname,rememberer.obituary_id,count(rmb_id) as total from rememberer
-    left join obituary on obituary.obituary_id= rememberer.obituary_id 
-    group by rememberer.obituary_id
-    
+     user_account.user_id,username,count(photo.user_id)as total from user_account 
+    left join photo on user_account.user_id=photo.user_id 
+    GROUP by user_account.user_id
     ;";
     $result= mysqli_query($connect, $query);
 ?>
@@ -153,7 +152,7 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li>
+                    <li>
                             <a href="daftar_userAccount.php">
                                 <i class="fas fa-table"></i>Table User Account</a>
                         </li>
@@ -161,7 +160,7 @@
                             <a href="daftar_obituary.php">
                                 <i class="fas fa-table"></i>Table Obituary</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="daftar_necrology.php">
                                 <i class="fas fa-table"></i>Table Necrology</a>
                         </li>
@@ -179,26 +178,6 @@
                                 <i class="fas fa-table"></i>Table Donasi</a>
                         </li>
                         <li>
-                            <a href="active_user.php">
-                                <i class="fas fa-table"></i>Table Active User</a>
-                        </li>
-                        <li>
-                            <a href="daftar_necrology_user.php">
-                                <i class="fas fa-table"></i>Table Necrology User</a>
-                        </li>
-                        <li class="active">
-                            <a href="jumlah_story.php">
-                                <i class="fas fa-table"></i>Table Jumlah Story User</a>
-                        </li>
-                        <li class="active">
-                            <a href="rememberer.php">
-                                <i class="fas fa-table"></i>Table rememberer</a>
-                        </li>
-                        <li>
-                        <a href="jumlah_foto.php">
-                                <i class="fas fa-table"></i>Foto User</a>
-                        </li>
-
                             <a href="not_active_user.php">
                                 <i class="fas fa-table"></i>Table Not Active User</a>
                         </li>
@@ -209,6 +188,10 @@
                         <li>
                             <a href="rememberer.php">
                                 <i class="fas fa-table"></i>Table rememberer</a>
+                        </li>
+                        <li class="active">
+                        <a href="jumlah_foto.php">
+                                <i class="fas fa-table"></i>Foto User</a>
                         </li>
                     </ul>
                 </nav>
@@ -226,7 +209,7 @@
                             <form class="form-header" action="" method="POST">
                                 <input class="au-input au-input--xl" type="text" name="search"
                                     placeholder="Search for datas &amp; reports..." />
-                                <button class="au-btn--submit" type="submit">
+                                        <button class="au-btn--submit" type="submit">
                                     <i class="zmdi zmdi-search"></i>
                                 </button>
                             </form>
@@ -243,15 +226,13 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
-                                <h3 class="title-5 m-b-35">data Jumlah story</h3>
+                                <h3 class="title-5 m-b-35">data foto</h3>
                                 <div class="table-responsive table-responsive-data2">
-                                    <table class="table table-data2" id="myTable">
+                                    <table class="table table-data2">
                                         <thead>
                                             <tr>
-                  
-
-                                                <th>fullname</th>
-                                                <th>obituary_id</th>
+                                                <th>user_id</th>
+                                                <th>username</th>
                                                 <th>total</th>
                                             </tr>
                                         </thead>
@@ -262,15 +243,14 @@
                                                 ?>  
                                                 <tr class="tr-shadow">
                                                 <td>
-                                                    <?php echo $rows['fullname'];?>
+                                                    <?php echo $rows['user_id'];?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $rows['obituary_id'];?>
+                                                    <?php echo $rows['username'];?>
                                                 </td>
                                                 <td>
                                                     <?php echo $rows['total'] ;?> 
                                                 </td>
-                                               
                                                <td>
                                                 
                                                 
@@ -292,10 +272,6 @@
 
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
-    <script src="vendor/ddtf.js"></script>
-    <script>
-        $('#myTable').ddTableFilter();
-    </script>
     <!-- Bootstrap JS-->
     <script src="vendor/bootstrap-4.1/popper.min.js"></script>
     <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>

@@ -165,6 +165,32 @@
                             <a href="daftar_obituary.php">
                                 <i class="fas fa-table"></i>Table Obituary</a>
                         </li>
+
+                        <li>
+                            <a href="daftar_necrology.php">
+                                <i class="fas fa-table"></i>Table Necrology</a>
+                        </li>
+
+                        <li class="active">
+                            <a href="flower_obituary.php">
+                                <i class="fas fa-table"></i>Table Donasi</a>
+
+                        <li>
+                            <a href="daftar_relasi.php">
+                                <i class="fas fa-table"></i>Table Relation</a>
+
+                        </li>
+                        <li>
+                            <a href="active_user.php">
+                                <i class="fas fa-table"></i>Table Active User</a>
+                        </li>
+
+                        <li>
+                            <a href="daftar_necrology_user.php">
+                                <i class="fas fa-table"></i>Table Necrology User</a>
+                        <!--from Nick-->
+                        </li>
+                        <li>
                         <li class="active">
                             <a href="daftar_necrology.php">
                                 <i class="fas fa-table"></i>Table Necrology</a>
@@ -193,6 +219,10 @@
                         <li>
                             <a href="rememberer.php">
                                 <i class="fas fa-table"></i>Table rememberer</a>
+                        </li>
+                        <li>
+                        <a href="jumlah_foto.php">
+                                <i class="fas fa-table"></i>Foto User</a>
                         </li>
                     </ul>
                 </nav>

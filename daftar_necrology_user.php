@@ -1,11 +1,14 @@
 <?php 
     include_once'connect.php';
     $query="SELECT
-    fullname,rememberer.obituary_id,count(rmb_id) as total from rememberer
-    left join obituary on obituary.obituary_id= rememberer.obituary_id 
-    group by rememberer.obituary_id
-    
-    ;";
+    vn.nec_name AS obituary,
+    ua.username AS maintain_by,
+    ua.user_id
+    FROM virtual_necrology vn
+    INNER JOIN user_account ua
+    ON vn.user_id = ua.user_id
+    HAVING ua.user_id = 2
+    ";
     $result= mysqli_query($connect, $query);
 ?>
 <!DOCTYPE html>
@@ -19,7 +22,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Obituary Report | Daftar User Account</title>
+    <title>Obituary Report | Daftar Obituary</title>
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -161,54 +164,42 @@
                             <a href="daftar_obituary.php">
                                 <i class="fas fa-table"></i>Table Obituary</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="daftar_necrology.php">
                                 <i class="fas fa-table"></i>Table Necrology</a>
                         </li>
                         <li>
-                            <a href="daftar_relasi.php">
-                                <i class="fas fa-table"></i>Table Relation</a>
-                        </li>
-                        <li>
-                            <a href="daftar_obituary_in_necrology.php">
-                                <i class="fas fa-table"></i>Table Obituary in Necrology</a>
-                        </li>
-                        <!--from Nick-->
-                        <li>
-                            <a href="flower_obituary.php">
+<<<<<<< Updated upstream:daftar_necrology_user.php
+                        <a href="flower_obituary.php">
                                 <i class="fas fa-table"></i>Table Donasi</a>
                         </li>
                         <li>
                             <a href="active_user.php">
                                 <i class="fas fa-table"></i>Table Active User</a>
+=======
+                            <a href="daftar_relasi.php">
+                                <i class="fas fa-table"></i>Table Relation</a>
                         </li>
-                        <li>
+                        <li class="active">
+                            <a href="daftar_obituary_in_necrology.php">
+                                <i class="fas fa-table"></i>Table Obituary in Necrology</a>
+>>>>>>> Stashed changes:daftar_obituary_in_necrology.php
+                        </li>
+                        <li class="active">
                             <a href="daftar_necrology_user.php">
                                 <i class="fas fa-table"></i>Table Necrology User</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="jumlah_story.php">
                                 <i class="fas fa-table"></i>Table Jumlah Story User</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="rememberer.php">
                                 <i class="fas fa-table"></i>Table rememberer</a>
                         </li>
                         <li>
                         <a href="jumlah_foto.php">
                                 <i class="fas fa-table"></i>Foto User</a>
-                        </li>
-
-                            <a href="not_active_user.php">
-                                <i class="fas fa-table"></i>Table Not Active User</a>
-                        </li>
-                        <li >
-                            <a href="jumlah_story.php">
-                                <i class="fas fa-table"></i>Table Jumlah Story User</a>
-                        </li>
-                        <li>
-                            <a href="rememberer.php">
-                                <i class="fas fa-table"></i>Table rememberer</a>
                         </li>
                     </ul>
                 </nav>
@@ -243,16 +234,15 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
-                                <h3 class="title-5 m-b-35">data Jumlah story</h3>
+                                <h3 class="title-5 m-b-35">data table</h3>
                                 <div class="table-responsive table-responsive-data2">
-                                    <table class="table table-data2" id="myTable">
+                                    <table class="table table-data2">
                                         <thead>
                                             <tr>
-                  
-
-                                                <th>fullname</th>
-                                                <th>obituary_id</th>
-                                                <th>total</th>
+                                                <th>obituary</th>
+                                                <th>maintain_by</th>
+                                                <th>user_id</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -262,18 +252,15 @@
                                                 ?>  
                                                 <tr class="tr-shadow">
                                                 <td>
-                                                    <?php echo $rows['fullname'];?>
+                                                    <?php echo $rows['obituary'];?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $rows['obituary_id'];?>
+                                                    <?php echo $rows['maintain_by'];?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $rows['total'] ;?> 
+                                                    <?php echo $rows['user_id'];?>
                                                 </td>
-                                               
-                                               <td>
-                                                
-                                                
+                                              
                                             </tr>
                                             <tr class="spacer"></tr>
                                             <?php
@@ -292,10 +279,6 @@
 
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
-    <script src="vendor/ddtf.js"></script>
-    <script>
-        $('#myTable').ddTableFilter();
-    </script>
     <!-- Bootstrap JS-->
     <script src="vendor/bootstrap-4.1/popper.min.js"></script>
     <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>

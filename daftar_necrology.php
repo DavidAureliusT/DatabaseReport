@@ -168,6 +168,18 @@
                                 <i class="fas fa-table"></i>Table Necrology</a>
                         </li>
                         <li>
+                            <a href="daftar_relasi.php">
+                                <i class="fas fa-table"></i>Table Relation</a>
+                        </li>
+                        <li>
+                            <a href="active_user.php">
+                                <i class="fas fa-table"></i>Table Active User</a>
+                        </li>
+                        <li>
+                            <a href="daftar_necrology_user.php">
+                                <i class="fas fa-table"></i>Table Necrology User</a>
+                        </li>
+                        <li>
                             <a href="daftar_necrology.php">
                                 <i class="fas fa-table"></i>Table Relation</a>
                         </li>
@@ -184,13 +196,18 @@
                             <a href="not_active_user.php">
                                 <i class="fas fa-table"></i>Table Not Active User</a>
                         </li>
-                        <li >
+                        <li>
                             <a href="jumlah_story.php">
                                 <i class="fas fa-table"></i>Table Jumlah Story User</a>
                         </li>
                         <li>
                             <a href="rememberer.php">
                                 <i class="fas fa-table"></i>Table rememberer</a>
+                        </li>
+
+                        <li>
+                        <a href="jumlah_foto.php">
+                                <i class="fas fa-table"></i>Foto User</a>
                         </li>
                     </ul>
                 </nav>
@@ -241,6 +258,7 @@
                                                 <th>nama necrology</th>
                                                 <th>nama owner</th>
                                                 <th>address</th>
+                                                <th>photo_profile</th>
                                                 <th>description</th>
                                                 <th>favorite_total</th>
                                             </tr>
@@ -264,12 +282,14 @@
                                                     <?php echo $rows['address'];?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $rows['description'];?>
+                                                  <img src ="<?php echo $rows['photo_profile']; ?>" />
+                                                </td>
+                                                <td>
+                                                  <?php echo $rows['description'];?>
                                                 </td>
                                                 <td>
                                                     <?php echo $rows['favorite_total'];?>
                                                 </td>
-                                                
                                             </tr>
                                             <tr class="spacer"></tr>
                                             <?php

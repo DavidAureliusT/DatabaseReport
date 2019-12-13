@@ -163,6 +163,18 @@
                                 <i class="fas fa-table"></i>Table Necrology</a>
                         </li>
                         <li>
+                            <a href="daftar_relasi.php">
+                                <i class="fas fa-table"></i>Table Relation</a>
+                        </li>
+                        <li>
+                            <a href="active_user.php">
+                                <i class="fas fa-table"></i>Table Active User</a>
+                        </li>
+                        <li>
+                            <a href="daftar_necrology_user.php">
+                                <i class="fas fa-table"></i>Table Necrology User</a>
+                        </li>
+                        <li>
                             <a href="daftar_necrology.php">
                                 <i class="fas fa-table"></i>Table Relation</a>
                         </li>
@@ -186,6 +198,10 @@
                         <li>
                             <a href="rememberer.php">
                                 <i class="fas fa-table"></i>Table rememberer</a>
+                        </li>
+                        <li>
+                        <a href="jumlah_foto.php">
+                                <i class="fas fa-table"></i>Foto User</a>
                         </li>
                     </ul>
                 </nav>
