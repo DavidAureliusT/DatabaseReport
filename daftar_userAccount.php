@@ -148,7 +148,7 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li class="active">
+                        <li>
                             <a href="daftar_userAccount.php">
                                 <i class="fas fa-table"></i>Table User Account</a>
                         </li>
@@ -156,7 +156,7 @@
                             <a href="daftar_obituary.php">
                                 <i class="fas fa-table"></i>Table Obituary</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="daftar_necrology.php">
                                 <i class="fas fa-table"></i>Table Necrology</a>
                         </li>
@@ -177,7 +177,14 @@
                             <a href="not_active_user.php">
                                 <i class="fas fa-table"></i>Table Not Active User</a>
                         </li>
-                        
+                        <li >
+                            <a href="jumlah_story.php">
+                                <i class="fas fa-table"></i>Table Jumlah Story User</a>
+                        </li>
+                        <li>
+                            <a href="rememberer.php">
+                                <i class="fas fa-table"></i>Table rememberer</a>
+                        </li>
                     </ul>
                 </nav>
             </div>

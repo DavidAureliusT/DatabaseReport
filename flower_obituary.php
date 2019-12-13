@@ -165,7 +165,7 @@
                             <a href="daftar_obituary.php">
                                 <i class="fas fa-table"></i>Table Obituary</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="daftar_necrology.php">
                                 <i class="fas fa-table"></i>Table Necrology</a>
                         </li>
@@ -178,7 +178,7 @@
                                 <i class="fas fa-table"></i>Table Obituary in Necrology</a>
                         </li>
                         <!--from Nick-->
-                        <li class="active">
+                        <li>
                             <a href="flower_obituary.php">
                                 <i class="fas fa-table"></i>Table Donasi</a>
                         </li>
@@ -186,8 +186,14 @@
                             <a href="not_active_user.php">
                                 <i class="fas fa-table"></i>Table Not Active User</a>
                         </li>
-                        
-                        
+                        <li >
+                            <a href="jumlah_story.php">
+                                <i class="fas fa-table"></i>Table Jumlah Story User</a>
+                        </li>
+                        <li>
+                            <a href="rememberer.php">
+                                <i class="fas fa-table"></i>Table rememberer</a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -221,7 +227,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
-                                <h3 class="title-5 m-b-35">data table</h3>
+                                <h3 class="title-5 m-b-35">data Donasi</h3>
                                 <div class="table-responsive table-responsive-data2">
                                     <table class="table table-data2">
                                         <thead>

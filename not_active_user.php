@@ -1,17 +1,17 @@
 <?php 
     include_once'connect.php';
     $query="SELECT * from user_account where user_id not in (
-            select user_id from virtual_necrology 
-            union all select user_id from story 
-            union all select user_id from story_comment 
-            union all select user_id from rememberer 
-            union all select user_id from relation
-            union all select user_id from photo 
-            union all select user_id from flower
-            union all select user_id from favorite_necrology
-            union all select user_id from testimony
-            union all select user_id from obituary)
-        ;";
+select user_id from virtual_necrology
+union all select user_id from story
+union all select user_id from story_comment
+union all select user_id from rememberer
+union all select user_id from relation
+union all select user_id from photo
+union all select user_id from flower
+union all select user_id from favorite_necrology
+union all select user_id from testimony
+union all select user_id from obituary)
+;";
     $result= mysqli_query($connect, $query);
 ?>
 <!DOCTYPE html>
@@ -163,11 +163,11 @@
                             <a href="daftar_userAccount.php">
                                 <i class="fas fa-table"></i>Table User Account</a>
                         </li>
-                        <li >
+                        <li>
                             <a href="daftar_obituary.php">
                                 <i class="fas fa-table"></i>Table Obituary</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="daftar_necrology.php">
                                 <i class="fas fa-table"></i>Table Necrology</a>
                         </li>
@@ -184,11 +184,18 @@
                             <a href="flower_obituary.php">
                                 <i class="fas fa-table"></i>Table Donasi</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="not_active_user.php">
                                 <i class="fas fa-table"></i>Table Not Active User</a>
                         </li>
-                        
+                        <li >
+                            <a href="jumlah_story.php">
+                                <i class="fas fa-table"></i>Table Jumlah Story User</a>
+                        </li>
+                        <li>
+                            <a href="rememberer.php">
+                                <i class="fas fa-table"></i>Table rememberer</a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -224,7 +231,7 @@
                                 <!-- DATA TABLE -->
                                 <h3 class="title-5 m-b-35">data not active</h3>
                                 <div class="table-responsive table-responsive-data2">
-                                    <table class="table table-data2">
+                                    <table class="table table-data2" id="myTable">
                                         <thead>
                                             <tr>
                                                 <th>user_id</th>

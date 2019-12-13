@@ -184,7 +184,14 @@
                             <a href="not_active_user.php">
                                 <i class="fas fa-table"></i>Table Not Active User</a>
                         </li>
-                        
+                        <li >
+                            <a href="jumlah_story.php">
+                                <i class="fas fa-table"></i>Table Jumlah Story User</a>
+                        </li>
+                        <li>
+                            <a href="rememberer.php">
+                                <i class="fas fa-table"></i>Table rememberer</a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -221,7 +228,7 @@
                                         INNER JOIN favorite_necrology fn
                                         ON vn.necrology_id = fn.necrology_id
                                         INNER JOIN user_account ua
-                                        ON ua.user_id = vn.owner
+                                        ON ua.user_id = vn.user_id
                                         GROUP BY fn.necrology_id";
                                     $result=$connect->query($query);    
                                 ?>
@@ -282,6 +289,9 @@
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
     <script src="vendor/ddtf.js"></script>
+    <script>
+        $('#myTable').ddTableFilter();
+    </script>
     
     
     <!-- Bootstrap JS-->
