@@ -361,7 +361,7 @@
                                                     }?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $rows['username'];?>
+                                                <?php echo '<a href="detail_userAccount.php?id='.$rows['user_id'].'">'.$rows['username'].''?>
                                                 </td>
                                                 <td class="desc">
                                                     <?php echo $rows['biography'];?>
