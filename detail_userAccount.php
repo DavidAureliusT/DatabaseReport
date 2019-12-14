@@ -226,7 +226,7 @@
                                 <h3 class="title-5 m-b-35">data <?php echo $rows['username'];?></h3>
                                 <p><b>Obituary_id:</b> <?php echo $rows['obituary_id'];?></p>
                                 <p><b>Status:</b> <?php 
-                                    if($rows['isGuest'] == 0){
+                                    if($rows['isGuest'] == 1){
                                         echo "Guest";
                                     }else {
                                         echo "Member";
@@ -245,7 +245,8 @@
                                 <!--tabel necrology milik user-->
                                 <?php
                                     //untuk SQLnya
-                                    $query="SELECT * FROM virtual_necrology WHERE user_id=1;";
+                                    $query="SELECT * FROM virtual_necrology WHERE user_id=".$id."
+                                    ;";
                                     $result= mysqli_query($connect, $query);?>
                                 <table class="table table-borderless table-data3" >
                                     <thead>
@@ -271,6 +272,158 @@
                                     </tbody>
                                 </table>
                                 
+                                <br>
+                                <h4>Tabel Testimony</h4>
+                                <br>
+                                <!--tabel testimony milik user-->
+                                <?php
+                                    //untuk SQLnya
+                                    $query="SELECT * FROM testimony t INNER JOIN obituary ob ON t.obituary_id = ob.obituary_id WHERE t.user_id=".$id.";";
+                                    $result= mysqli_query($connect, $query);?>
+                                <table class="table table-borderless table-data3" >
+                                    <thead>
+                                        <tr>
+                                            <th>Testimony</th>
+                                            <th>Recieved by</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <?php
+                                        while($rows = mysqli_fetch_array($result)){
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $rows['testimony'];?></td>
+                                            <td><?php echo $rows['fullname'];?></td>
+                                        </tr>
+                                <?php
+                                }
+                                ?>
+                                    </tbody>
+                                </table>
+
+                                <br>
+                                <h4>Tabel Story</h4>
+                                <br>
+                                <!--tabel story milik user-->
+                                <?php
+                                    //untuk SQLnya
+                                    $query="SELECT * 
+                                        FROM story s 
+                                        INNER JOIN obituary ob 
+                                        ON s.obituary_id = ob.obituary_id 
+                                        INNER JOIN relation r
+                                        ON s.obituary_id = r.obituary_id AND s.user_id = r.user_id
+                                        INNER JOIN relation_type rt 
+                                        ON r.relation_type_id = rt.relation_id
+                                        WHERE s.user_id=".$id.";";
+                                    $result= mysqli_query($connect, $query);?>
+                                <table class="table table-borderless table-data3" >
+                                    <thead>
+                                        <tr>
+                                            <th>Story</th>
+                                            <th>Relation type</th>
+                                            <th>Recieved by</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <?php
+                                        while($rows = mysqli_fetch_array($result)){
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $rows['story'];?></td>
+                                            <td><?php echo $rows['relation_type'];?></td>
+                                            <td><?php echo $rows['fullname'];?></td>
+                                        </tr>
+                                <?php
+                                }
+                                ?>
+                                    </tbody>
+                                </table>
+                                
+                                <br>
+                                <h4>Tabel Flower</h4>
+                                <?php
+                                    //untuk SQLnya
+                                    $query="SELECT * , SUM(f.donation) AS total_donasi
+                                        FROM flower f 
+                                        INNER JOIN obituary ob
+                                        ON f.obituary_id = ob.obituary_id
+                                        WHERE f.user_id=".$id."
+                                        GROUP BY f.user_id;";
+                                    $result= mysqli_query($connect, $query);?>
+                                <h5>Total Donasi: Rp. <?php while($row = mysqli_fetch_array($result)){echo $row['total_donasi'];};?></h5>
+                                <br>
+                                <!--tabel donasi milik user-->
+                                <?php
+                                    //untuk SQLnya
+                                    $query="SELECT * 
+                                        FROM flower f 
+                                        INNER JOIN obituary ob
+                                        ON f.obituary_id = ob.obituary_id
+                                        WHERE f.user_id=".$id.";";
+                                    $result= mysqli_query($connect, $query);?>
+                                <table class="table table-borderless table-data3" >
+                                    <thead>
+                                        <tr>
+                                            <th>Obituary</th>
+                                            <th>Donation</th>
+                                            <th>date_upload</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <?php
+                                        while($rows = mysqli_fetch_array($result)){
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $rows['fullname'];?></td>
+                                            <td><?php echo $rows['donation'];?></td>
+                                            <td><?php echo $rows['date_upload'];?></td>
+                                        </tr>
+                                <?php
+                                }
+                                ?>
+                                    </tbody>
+                                </table>
+                                <br>
+                                <h4>Tabel Rememberer</h4>
+                                <br>
+                                <!--tabel donasi milik user-->
+                                <?php
+                                    //untuk SQLnya
+                                    $query="SELECT * 
+                                        FROM rememberer re 
+                                        INNER JOIN obituary ob
+                                        ON re.obituary_id = ob.obituary_id
+                                        WHERE re.user_id=".$id.";";
+                                    $result= mysqli_query($connect, $query);?>
+                                <table class="table table-borderless table-data3" >
+                                    <thead>
+                                        <tr>
+                                            <th>Rememberer</th>
+                                            <th>Caption</th>
+                                            <th>Recieved By</th>
+                                            <th>date_upload</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <?php
+                                        while($rows = mysqli_fetch_array($result)){
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $rows['photo'];?></td>
+                                            <td><?php echo $rows['caption'];?></td>
+                                            <td><?php echo $rows['fullname'];?></td>
+                                            <td><?php echo $rows['date_upload'];?></td>
+                                        </tr>
+                                <?php
+                                }
+                                ?>
+                                    </tbody>
+                                </table>
                                 <!-- END DATA TABLE -->
                             </div> 
                         </div>
