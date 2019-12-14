@@ -223,7 +223,7 @@
                                 $result= mysqli_query($connect, $query);
                                 while($rows = mysqli_fetch_array($result)){
                                     ?>
-                                <h3 class="title-5 m-b-35">data <?php echo $rows['username'];?></h3>
+                                <h3 class="title-5 m-b-35">data user: <?php echo $rows['username'];?></h3>
                                 <p><b>Obituary_id:</b> <?php echo $rows['obituary_id'];?></p>
                                 <p><b>Status:</b> <?php 
                                     if($rows['isGuest'] == 1){

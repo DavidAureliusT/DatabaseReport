@@ -1,17 +1,11 @@
 <?php 
     include_once'connect.php';
+    $id = $_GET['id'];
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!--javascript tablesorter-->
-    <script src="vendor/jquery.tablesorter.js"></script>
-    <script>
-        $(document).ready( function () {
-            $("#myTable").tablesorter();
-        })
-    </script>
-
     <!-- Required meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,7 +14,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Obituary Report | Daftar Necrology</title>
+    <title>Obituary Report | Detail Necrology</title>
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -46,7 +40,6 @@
 <body class="animsition">
     <div class="page-wrapper">
         <!-- HEADER MOBILE-->
-
         <header class="header-mobile d-block d-lg-none">
             <div class="header-mobile__bar">
                 <div class="container-fluid">
@@ -155,7 +148,7 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li>
+                        <li class="active">
                             <a href="daftar_userAccount.php">
                                 <i class="fas fa-table"></i>Table User Account</a>
                         </li>
@@ -163,21 +156,9 @@
                             <a href="daftar_obituary.php">
                                 <i class="fas fa-table"></i>Table Obituary</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="daftar_necrology.php">
                                 <i class="fas fa-table"></i>Table Necrology</a>
-                        </li>
-                        <li>
-                            <a href="daftar_relasi.php">
-                                <i class="fas fa-table"></i>Table Relation</a>
-                        </li>
-                        <li>
-                            <a href="active_user.php">
-                                <i class="fas fa-table"></i>Table Active User</a>
-                        </li>
-                        <li>
-                            <a href="daftar_necrology_user.php">
-                                <i class="fas fa-table"></i>Table Necrology User</a>
                         </li>
                         <li>
                             <a href="daftar_necrology.php">
@@ -196,18 +177,13 @@
                             <a href="not_active_user.php">
                                 <i class="fas fa-table"></i>Table Not Active User</a>
                         </li>
-                        <li>
+                        <li >
                             <a href="jumlah_story.php">
                                 <i class="fas fa-table"></i>Table Jumlah Story User</a>
                         </li>
                         <li>
                             <a href="rememberer.php">
                                 <i class="fas fa-table"></i>Table rememberer</a>
-                        </li>
-
-                        <li>
-                        <a href="jumlah_foto.php">
-                                <i class="fas fa-table"></i>Foto User</a>
                         </li>
                     </ul>
                 </nav>
@@ -222,7 +198,13 @@
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="header-wrap">
-							
+                            <form class="form-header" action="" method="POST">
+                                <input class="au-input au-input--xl" type="text" name="search"
+                                    placeholder="Search for datas &amp; reports..." />
+                                <button class="au-btn--submit" type="submit">
+                                    <i class="zmdi zmdi-search"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -237,78 +219,67 @@
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
                                 <?php
-                                    $query="SELECT *,
-                                        vn.nec_name AS nama_necrology,
-                                        COUNT(fn.necrology_id) as favorite_total
-                                        FROM virtual_necrology vn
-                                        INNER JOIN favorite_necrology fn
-                                        ON vn.necrology_id = fn.necrology_id
-                                        INNER JOIN user_account ua
-                                        ON ua.user_id = vn.user_id
-                                        GROUP BY fn.necrology_id";
-                                    $result=$connect->query($query);    
+                                $query="SELECT * FROM virtual_necrology vn INNER JOIN user_account ua ON vn.user_id = ua.user_id WHERE vn.necrology_id=".$id.";";
+                                $result= mysqli_query($connect, $query);
+                                
+                                while($rows = mysqli_fetch_array($result)){
+                                    ?>
+                                <h3 class="title-5 m-b-35">data Necrology:  <?php echo $rows['nec_name'];?></h3>
+                                <p><b>Owner: </b> <?php echo '<a href="detail_userAccount.php?id='.$rows['user_id'].'">'.$rows['username'].'</a>'?></p>
+                                <p><b>Address: </b> <?php echo $rows['address'];?></p>
+                                <p><b>Description: </b> <?php echo $rows['description'];?></p>
+                                    <?php
+                                }
                                 ?>
-                                <h3 class="title-5 m-b-35">data Necrology</h3>
-                                <div class="table-responsive table-responsive-data2">
-                                    <table class="table table-data2">
-                                        <thead>
+                                <br>
+                                <h4>Tabel Necrology</h4>
+                                <br>
+                                <!--tabel obituary di dalam necrology yg dipilih-->
+                                <?php
+                                    //untuk SQLnya
+                                    $query="SELECT *
+                                    FROM obituary ob 
+                                    INNER JOIN necrology_obituary n_o 
+                                    ON ob.obituary_id = n_o.obituary_id 
+                                    INNER JOIN virtual_necrology vn 
+                                    ON vn.necrology_id = n_o.necrology_id  
+                                    WHERE vn.necrology_id=".$id.";";
+                                    $result= mysqli_query($connect, $query);?>
+                                <table class="table table-borderless table-data3" >
+                                    <thead>
                                             <tr>
-                                                <th>nama necrology</th>
-                                                <th>nama owner</th>
-                                                <th>address</th>
-                                                <th>photo_profile</th>
+                                                <th>fullname</th>
+                                                <th>death_date</th>
                                                 <th>description</th>
-                                                <th>favorite_total</th>
+                                                <th>last_edited_date</th>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            while($rows = mysqli_fetch_array($result))
-                                            {
-                                                ?>  
-                                                <tr class="tr-shadow">
-                                                <td>
-                                                    <?php echo '<a href="detail_necrology.php?id='.$rows['necrology_id'].'">'.$rows['nama_necrology'].'';?>
-                                                </td>
-                                                <td>
-                                                    <?php echo '<a href="detail_userAccount.php?id='.$rows['user_id'].'">'.$rows['username'].'';?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['address'];?>
-                                                </td>
-                                                <td>
-                                                    <img src ="<?php echo $rows['photo_profile']; ?>" />
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['description'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['favorite_total'];?>
-                                                </td>
-                                            </tr>
-                                            <tr class="spacer"></tr>
-                                            <?php
-                                            
-                                        }
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <?php
+                                        while($rows = mysqli_fetch_array($result)){
+                                        ?>
+                                        <tr>
+                                            <td><?php echo '<a href="detail_obituary.php?id='.$rows['obituary_id'].'">'.$rows['fullname'].''?></td>
+                                            <td><?php echo $rows['death_date'];?></td>
+                                            <td><?php echo $rows['biography'];?></td>
+                                            <td><?php echo $rows['last_edited'];?></td>
+                                        </tr>
+                                <?php
+                                }
+                                ?>
+                                    </tbody>
+                                </table>
                                 <!-- END DATA TABLE -->
                             </div> 
                         </div>
                     </div>
                 </div>
             </div>
+            
 
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
-    <script src="vendor/ddtf.js"></script>
-    <script>
-        $('#myTable').ddTableFilter();
-    </script>
-    
-    
     <!-- Bootstrap JS-->
     <script src="vendor/bootstrap-4.1/popper.min.js"></script>
     <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
