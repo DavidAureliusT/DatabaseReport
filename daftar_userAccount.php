@@ -247,6 +247,11 @@
                                             <?php
                                             }?>
                                         </select>
+                                        <select name="status" id="">
+                                            <option value="all">All status</option>
+                                            <option value=0>Member</option>
+                                            <option value=1>Guest</option>
+                                        </select>
                                         <input type="submit" name="submit" class="submit"/>
                                     </form>
                                     <table class="table table-data2">
@@ -269,12 +274,40 @@
                                             $filter_gender="";
                                             if(isset($_POST['submit'])){
                                                 $filter_gender = $_POST['gender'];
-                                                echo $filter_gender;
-                                                if ($filter_gender=="all") {
-                                                    $query="SELECT * FROM user_account ua INNER JOIN gender g ON ua.gender_id = g.gender_id ;";
+                                                $filter_status = $_POST['status'];
+                                                $countCons=0;
+                                                $where ="";
+                                                $constrain_gender = "";
+                                                $constrain_status = "";
+                                                $and ="";
+                                                if ($filter_gender == "all") {
+                                                    $constrain_gender = "";
                                                 }else{
-                                                    $query="SELECT * FROM user_account ua INNER JOIN gender g ON ua.gender_id = g.gender_id WHERE g.gender_type='".$filter_gender."';";
+                                                    $constrain_gender = " g.gender_type='".$filter_gender."'";
+                                                    $countCons++;
                                                 }
+                                                if ($filter_status == "all") {
+                                                    $constrain_status = "";
+                                                }else {
+                                                    $constrain_status = " ua.isGuest=".$filter_status."";
+                                                    $countCons++;
+                                                }
+                                                if ($countCons==1) {
+                                                    $where = " WHERE ";
+                                                }else if ($countCons==2) {
+                                                    $where = " WHERE ";
+                                                    $and = " AND ";
+                                                }else{
+                                                    $where ="";
+                                                    $and ="";
+                                                }
+                                                //debugging
+                                                echo $filter_gender;
+                                                echo $filter_status;
+                                                echo $countCons;
+                                                //query
+                                                $query="SELECT * FROM user_account ua INNER JOIN gender g ON ua.gender_id = g.gender_id ".$where. $constrain_gender. $and. $constrain_status.";";
+                                                echo $query;
                                             }else {
                                                 $query="SELECT * FROM user_account ua INNER JOIN gender g ON ua.gender_id = g.gender_id ;";
                                             };
@@ -302,7 +335,13 @@
                                                     <?php echo $rows['photo_profile'];?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $rows['isGuest'];?>
+                                                    <?php
+                                                        if ($rows['isGuest'] == 1) {
+                                                            echo "GUEST";
+                                                        }else {
+                                                            echo "MEMBER";
+                                                        };
+                                                    ?>
                                                 </td>
                                                 <td>
                                                     <?php 
