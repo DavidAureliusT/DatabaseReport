@@ -1,9 +1,5 @@
 <?php 
     include_once'connect.php';
-    $query="SELECT * FROM user_account;";
-    $result= mysqli_query($connect, $query);
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -238,7 +234,21 @@
                                 <!-- DATA TABLE -->
                                 <h3 class="title-5 m-b-35">data User Account</h3>
                                 <div class="table-responsive table-responsive-data2">
-
+                                    <form action="daftar_userAccount.php" method="POST">
+                                        <select name="gender" id="">
+                                            <option value="all">All gender</option>
+                                            <?php
+                                            //query for filter by gender
+                                            $query="SELECT g.gender_type FROM gender g;";
+                                            $result= mysqli_query($connect, $query);
+                                            while($rows = mysqli_fetch_array($result))
+                                            {?>
+                                            <option value="<?php echo $rows['gender_type']?>"><?php echo $rows['gender_type']?></option>
+                                            <?php
+                                            }?>
+                                        </select>
+                                        <input type="submit" name="submit" class="submit"/>
+                                    </form>
                                     <table class="table table-data2">
                                         <thead>
                                             <tr>
@@ -256,6 +266,19 @@
                                         </thead>
                                         <tbody>
                                             <?php
+                                            $filter_gender="";
+                                            if(isset($_POST['submit'])){
+                                                $filter_gender = $_POST['gender'];
+                                                echo $filter_gender;
+                                                if ($filter_gender=="all") {
+                                                    $query="SELECT * FROM user_account ua INNER JOIN gender g ON ua.gender_id = g.gender_id ;";
+                                                }else{
+                                                    $query="SELECT * FROM user_account ua INNER JOIN gender g ON ua.gender_id = g.gender_id WHERE g.gender_type='".$filter_gender."';";
+                                                }
+                                            }else {
+                                                $query="SELECT * FROM user_account ua INNER JOIN gender g ON ua.gender_id = g.gender_id ;";
+                                            };
+                                            $result= mysqli_query($connect, $query);
                                             while($rows = mysqli_fetch_array($result))
                                             {
                                                 ?>  
@@ -286,11 +309,11 @@
                                                     if($rows['gender_id'] == 1)
                                                     {
                                                         ?>
-                                                        <span class="status--process"><?php echo $rows['gender_id'];?></span>
+                                                        <span class="status--process"><?php echo $rows['gender_type'];?></span>
                                                         <?php
                                                     }else {
                                                         ?>
-                                                        <span class="status--denied"><?php echo $rows['gender_id'];?></span>
+                                                        <span class="status--denied"><?php echo $rows['gender_type'];?></span>
                                                         <?php
                                                     }?>
                                                 </td>
