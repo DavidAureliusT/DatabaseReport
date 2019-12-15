@@ -423,6 +423,50 @@
                                 ?>
                                     </tbody>
                                 </table>
+
+
+
+                                </tbody>
+                                </table>
+                                <br>
+                                <h4>Tabel Rememberer</h4>
+                                <br>
+                                <!--tabel donasi milik user-->
+                                <?php
+                                    //untuk SQLnya
+                                    $query="SELECT * 
+                                        FROM rememberer re 
+                                        INNER JOIN obituary ob
+                                        ON re.obituary_id = ob.obituary_id
+                                        WHERE re.user_id=".$id.";";
+                                    $result= mysqli_query($connect, $query);?>
+                                <table class="table table-borderless table-data3" >
+                                    <thead>
+                                        <tr>
+                                            <th>Rememberer</th>
+                                            <th>Caption</th>
+                                            <th>Recieved By</th>
+                                            <th>date_upload</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <?php
+                                        while($rows = mysqli_fetch_array($result)){
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $rows['photo'];?></td>
+                                            <td><?php echo $rows['caption'];?></td>
+                                            <td><?php echo $rows['fullname'];?></td>
+                                            <td><?php echo $rows['date_upload'];?></td>
+                                        </tr>
+                                <?php
+                                }
+                                ?>
+                                    </tbody>
+                                </table>
+
+                                
                                 <!-- END DATA TABLE -->
                             </div> 
                         </div>

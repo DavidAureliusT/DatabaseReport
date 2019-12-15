@@ -435,7 +435,53 @@
 
 
 
+                                <br>
+                                <h4>Tabel Testimony</h4>
+                                <br>
+                                <p><b>Total Testimony:</b></p>
+                                <?php
+                                $query="SELECT count(testimony.user_id)as total from testimony WHERE testimony.obituary_id=".$id.";";
+                                $result= mysqli_query($connect, $query);
+                                while($rows = mysqli_fetch_array($result)){
+                              echo $rows['total'];
+                                }?>
+                              
+                                <br>
+                                <!--tabel necrology milik user-->
+                                <?php
+                                    //untuk SQLnya
+                                    $query="SELECT testimony.obituary_id,testimony.testimony,fullname from testimony left join obituary on testimony.obituary_id=obituary.obituary_id  WHERE testimony.obituary_id=".$id.";";
+                                    $result= mysqli_query($connect, $query);?>
+                                <table class="table table-borderless table-data3" >
+                                    <thead>
+                                        <tr>
+                                            <th>Obituary_id</th>
+                                            <th>fullname</th>
+                                            <th>Testimony</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <?php
+                                        while($rows = mysqli_fetch_array($result)){
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $rows['obituary_id'];?></td>
+                                            <td><?php echo $rows['fullname'];?></td>
+                                            <td><?php echo $rows['testimony'];?></td>
+                                        </tr>
+                                <?php
+                                }
+                                ?>
 
+
+
+
+                                
+                                
+                                
+                                    </tbody>
+                                </table>
 
 
 
