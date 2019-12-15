@@ -237,7 +237,6 @@
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
                                 <?php
-                                  
                                     $query="SELECT *,
                                         vn.nec_name AS nama_necrology,
                                         COUNT(fn.necrology_id) as favorite_total
@@ -251,10 +250,9 @@
                                 ?>
                                 <h3 class="title-5 m-b-35">data Necrology</h3>
                                 <div class="table-responsive table-responsive-data2">
-                                    <table class="table table-data2" id="myTable">
+                                    <table class="table table-data2">
                                         <thead>
                                             <tr>
-                                                <th>necrology_id</th>
                                                 <th>nama necrology</th>
                                                 <th>nama owner</th>
                                                 <th>address</th>
@@ -270,22 +268,19 @@
                                                 ?>  
                                                 <tr class="tr-shadow">
                                                 <td>
-                                                    <?php echo $rows['necrology_id'];?>
+                                                    <?php echo '<a href="detail_necrology.php?id='.$rows['necrology_id'].'">'.$rows['nama_necrology'].'';?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $rows['nama_necrology'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['username'];?>
+                                                    <?php echo '<a href="detail_userAccount.php?id='.$rows['user_id'].'">'.$rows['username'].'';?>
                                                 </td>
                                                 <td>
                                                     <?php echo $rows['address'];?>
                                                 </td>
                                                 <td>
-                                                  <img src ="<?php echo $rows['photo_profile']; ?>" />
+                                                    <img src ="<?php echo $rows['photo_profile']; ?>" />
                                                 </td>
                                                 <td>
-                                                  <?php echo $rows['description'];?>
+                                                    <?php echo $rows['description'];?>
                                                 </td>
                                                 <td>
                                                     <?php echo $rows['favorite_total'];?>

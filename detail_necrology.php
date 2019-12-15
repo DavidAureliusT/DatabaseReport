@@ -1,5 +1,7 @@
 <?php 
     include_once'connect.php';
+    $id = $_GET['id'];
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +14,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Obituary Report | Daftar User Account</title>
+    <title>Obituary Report | Detail Necrology</title>
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -159,18 +161,6 @@
                                 <i class="fas fa-table"></i>Table Necrology</a>
                         </li>
                         <li>
-                            <a href="daftar_relasi.php">
-                                <i class="fas fa-table"></i>Table Relation</a>
-                        </li>
-                        <li>
-                            <a href="active_user.php">
-                                <i class="fas fa-table"></i>Table Active User</a>
-                        </li>
-                        <li>
-                            <a href="daftar_necrology_user.php">
-                                <i class="fas fa-table"></i>Table Necrology User</a>
-                        </li>
-                        <li>
                             <a href="daftar_necrology.php">
                                 <i class="fas fa-table"></i>Table Relation</a>
                         </li>
@@ -194,10 +184,6 @@
                         <li>
                             <a href="rememberer.php">
                                 <i class="fas fa-table"></i>Table rememberer</a>
-                        </li>
-                        <li>
-                        <a href="jumlah_foto.php">
-                                <i class="fas fa-table"></i>Foto User</a>
                         </li>
                     </ul>
                 </nav>
@@ -232,139 +218,58 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
-                                <h3 class="title-5 m-b-35">data User Account</h3>
-                                <div class="table-responsive table-responsive-data2">
-                                    <form action="daftar_userAccount.php" method="POST">
-                                        <select name="gender" id="">
-                                            <option value="all">All gender</option>
-                                            <?php
-                                            //query for filter by gender
-                                            $query="SELECT g.gender_type FROM gender g;";
-                                            $result= mysqli_query($connect, $query);
-                                            while($rows = mysqli_fetch_array($result))
-                                            {?>
-                                            <option value="<?php echo $rows['gender_type']?>"><?php echo $rows['gender_type']?></option>
-                                            <?php
-                                            }?>
-                                        </select>
-                                        <select name="status" id="">
-                                            <option value="all">All status</option>
-                                            <option value=0>Member</option>
-                                            <option value=1>Guest</option>
-                                        </select>
-                                        <input type="submit" name="submit" class="submit"/>
-                                    </form>
-                                    <table class="table table-data2">
-                                        <thead>
+                                <?php
+                                $query="SELECT * FROM virtual_necrology vn INNER JOIN user_account ua ON vn.user_id = ua.user_id WHERE vn.necrology_id=".$id.";";
+                                $result= mysqli_query($connect, $query);
+                                
+                                while($rows = mysqli_fetch_array($result)){
+                                    ?>
+                                <h3 class="title-5 m-b-35">data Necrology:  <?php echo $rows['nec_name'];?></h3>
+                                <p><b>Owner: </b> <?php echo '<a href="detail_userAccount.php?id='.$rows['user_id'].'">'.$rows['username'].'</a>'?></p>
+                                <p><b>Address: </b> <?php echo $rows['address'];?></p>
+                                <p><b>Description: </b> <?php echo $rows['description'];?></p>
+                                    <?php
+                                }
+                                ?>
+                                <br>
+                                <h4>Tabel Necrology</h4>
+                                <br>
+                                <!--tabel obituary di dalam necrology yg dipilih-->
+                                <?php
+                                    //untuk SQLnya
+                                    $query="SELECT *
+                                    FROM obituary ob 
+                                    INNER JOIN necrology_obituary n_o 
+                                    ON ob.obituary_id = n_o.obituary_id 
+                                    INNER JOIN virtual_necrology vn 
+                                    ON vn.necrology_id = n_o.necrology_id  
+                                    WHERE vn.necrology_id=".$id.";";
+                                    $result= mysqli_query($connect, $query);?>
+                                <table class="table table-borderless table-data3" >
+                                    <thead>
                                             <tr>
-                                                <th>obituary_id</th>
-                                                <th>username</th>
-                                                <th>biography</th>
-                                                <th>birthdate</th>
-                                                <th>province</th>
-                                                <th>photo_profile</th>
-                                                <th>isGuest</th>
-                                                <th>gender_id</th>
-                                                <th></th>
-                                                <th></th>
+                                                <th>fullname</th>
+                                                <th>death_date</th>
+                                                <th>description</th>
+                                                <th>last_edited_date</th>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $filter_gender="";
-                                            if(isset($_POST['submit'])){
-                                                $filter_gender = $_POST['gender'];
-                                                $filter_status = $_POST['status'];
-                                                $countCons=0;
-                                                $where ="";
-                                                $constrain_gender = "";
-                                                $constrain_status = "";
-                                                $and ="";
-                                                if ($filter_gender == "all") {
-                                                    $constrain_gender = "";
-                                                }else{
-                                                    $constrain_gender = " g.gender_type='".$filter_gender."'";
-                                                    $countCons++;
-                                                }
-                                                if ($filter_status == "all") {
-                                                    $constrain_status = "";
-                                                }else {
-                                                    $constrain_status = " ua.isGuest=".$filter_status."";
-                                                    $countCons++;
-                                                }
-                                                if ($countCons==1) {
-                                                    $where = " WHERE ";
-                                                }else if ($countCons==2) {
-                                                    $where = " WHERE ";
-                                                    $and = " AND ";
-                                                }else{
-                                                    $where ="";
-                                                    $and ="";
-                                                }
-                                                //debugging
-                                                echo $filter_gender;
-                                                echo $filter_status;
-                                                echo $countCons;
-                                                //query
-                                                $query="SELECT * FROM user_account ua INNER JOIN gender g ON ua.gender_id = g.gender_id ".$where. $constrain_gender. $and. $constrain_status.";";
-                                                echo $query;
-                                            }else {
-                                                $query="SELECT * FROM user_account ua INNER JOIN gender g ON ua.gender_id = g.gender_id ;";
-                                            };
-                                            $result= mysqli_query($connect, $query);
-                                            while($rows = mysqli_fetch_array($result))
-                                            {
-                                                ?>  
-                                                <tr class="tr-shadow">
-                                                <td>
-                                                    <?php echo $rows['obituary_id'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo '<a href="detail_userAccount.php?id='.$rows['user_id'].'">'.$rows['username'].''?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['biography'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['birthdate'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['province'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['photo_profile'];?>
-                                                </td>
-                                                <td>
-                                                    <?php
-                                                        if ($rows['isGuest'] == 1) {
-                                                            echo "GUEST";
-                                                        }else {
-                                                            echo "MEMBER";
-                                                        };
-                                                    ?>
-                                                </td>
-                                                <td>
-                                                    <?php 
-                                                    if($rows['gender_id'] == 1)
-                                                    {
-                                                        ?>
-                                                        <span class="status--process"><?php echo $rows['gender_type'];?></span>
-                                                        <?php
-                                                    }else {
-                                                        ?>
-                                                        <span class="status--denied"><?php echo $rows['gender_type'];?></span>
-                                                        <?php
-                                                    }?>
-                                                </td>
-                                                
-                                            </tr>
-                                            <tr class="spacer"></tr>
-                                            <?php
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <?php
+                                        while($rows = mysqli_fetch_array($result)){
+                                        ?>
+                                        <tr>
+                                            <td><?php echo '<a href="detail_obituary.php?id='.$rows['obituary_id'].'">'.$rows['fullname'].''?></td>
+                                            <td><?php echo $rows['death_date'];?></td>
+                                            <td><?php echo $rows['biography'];?></td>
+                                            <td><?php echo $rows['last_edited'];?></td>
+                                        </tr>
+                                <?php
+                                }
+                                ?>
+                                    </tbody>
+                                </table>
                                 <!-- END DATA TABLE -->
                             </div> 
                         </div>
@@ -375,10 +280,6 @@
 
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
-    <script src="vendor/ddtf.js"></script>
-    <script>
-        $('#myTable').ddTableFilter();
-    </script>
     <!-- Bootstrap JS-->
     <script src="vendor/bootstrap-4.1/popper.min.js"></script>
     <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
