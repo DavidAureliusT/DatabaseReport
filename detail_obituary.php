@@ -384,6 +384,49 @@
                                 <?php
                                 }
                                 ?>
+</tbody>
+                                </table>
+
+
+
+
+<br>
+                                <h4>Tabel Story</h4>
+                                <br>
+                                <!--tabel necrology milik user-->
+                                <?php
+                                    //untuk SQLnya
+                                    $query="SELECT user_account.user_id,username,story.obituary_id,count(story.user_id)as total from user_account 
+                                    left join story on user_account.user_id=story.user_id 
+                                    WHERE story.obituary_id=".$id.";";
+                                    $result= mysqli_query($connect, $query);?>
+                                <table class="table table-borderless table-data3" >
+                                    <thead>
+                                        <tr>
+                                            <th>User_id</th>
+                                            <th>Username</th>
+                                            <th>Obituary_id</th>
+                                            <th>total</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <?php
+                                        while($rows = mysqli_fetch_array($result)){
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $rows['user_id'];?></td>
+                                            <td><?php echo $rows['username'];?></td>
+                                            <td><?php echo $rows['obituary_id'];?></td>
+                                            <td><?php echo $rows['total'];?></td>
+                                        </tr>
+                                <?php
+                                }
+                                ?>
+
+
+
+
                                 
                                 
                                 
