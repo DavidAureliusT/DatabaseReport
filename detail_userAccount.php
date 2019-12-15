@@ -245,7 +245,7 @@
                                 <!--tabel necrology milik user-->
                                 <?php
                                     //untuk SQLnya
-                                    $query="SELECT * FROM virtual_necrology WHERE user_id=1;";
+                                    $query="SELECT * FROM virtual_necrology WHERE user_id=".$id.";";
                                     $result= mysqli_query($connect, $query);?>
                                 <table class="table table-borderless table-data3" >
                                     <thead>

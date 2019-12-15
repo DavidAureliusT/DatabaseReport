@@ -1,15 +1,11 @@
 <?php 
     include_once'connect.php';
-    $query="SELECT *,ob.obituary_id AS 'id_obituary' FROM obituary ob INNER JOIN user_account ua ON ob.user_id = ua.user_id INNER JOIN gender g ON ob.gender_id = g.gender_id WHERE fullname LIKE '%".$_POST['t1']."%'"; //like %.$_POST.% = mengeluarkan hasil yang ada a nya , kalau %.$_POST = yang diakhiri huruf yang di postnya  
-    $result=$connect->query($query);
+    $id = $_GET['id'];
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!--javascript tablesorter-->
-    <script src="vendor/jquery.tablesorter.js"></script>
-    
-
     <!-- Required meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,7 +14,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Obituary Report | Daftar Obituary</title>
+    <title>Obituary Report | Daftar User Account</title>
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -152,29 +148,17 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li>
+                        <li class="active">
                             <a href="daftar_userAccount.php">
                                 <i class="fas fa-table"></i>Table User Account</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="daftar_obituary.php">
                                 <i class="fas fa-table"></i>Table Obituary</a>
                         </li>
                         <li>
                             <a href="daftar_necrology.php">
                                 <i class="fas fa-table"></i>Table Necrology</a>
-                        </li>
-                        <li>
-                            <a href="daftar_relasi.php">
-                                <i class="fas fa-table"></i>Table Relation</a>
-                        </li>
-                        <li>
-                            <a href="active_user.php">
-                                <i class="fas fa-table"></i>Table Active User</a>
-                        </li>
-                        <li>
-                            <a href="daftar_necrology_user.php">
-                                <i class="fas fa-table"></i>Table Necrology User</a>
                         </li>
                         <li>
                             <a href="daftar_necrology.php">
@@ -193,18 +177,13 @@
                             <a href="not_active_user.php">
                                 <i class="fas fa-table"></i>Table Not Active User</a>
                         </li>
-                        <li>
+                        <li >
                             <a href="jumlah_story.php">
                                 <i class="fas fa-table"></i>Table Jumlah Story User</a>
                         </li>
                         <li>
                             <a href="rememberer.php">
                                 <i class="fas fa-table"></i>Table rememberer</a>
-                        </li>
-
-                        <li>
-                        <a href="jumlah_foto.php">
-                                <i class="fas fa-table"></i>Foto User</a>
                         </li>
                     </ul>
                 </nav>
@@ -219,10 +198,10 @@
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="header-wrap">
-                            <form class="form-header" action="" method="POST" enctype="multipart/form-data">
-                                <input class="au-input au-input--xl" type="text" name="t1"
-                                    placeholder="Search by name.." />
-                                <button class="au-btn--submit" type="submit" name="submit4" value="search">
+                            <form class="form-header" action="" method="POST">
+                                <input class="au-input au-input--xl" type="text" name="search"
+                                    placeholder="Search for datas &amp; reports..." />
+                                <button class="au-btn--submit" type="submit">
                                     <i class="zmdi zmdi-search"></i>
                                 </button>
                             </form>
@@ -240,173 +219,199 @@
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
                                 <?php
-                                if(isset($_POST["submit4"])){  
-                                    $query="SELECT *,ob.obituary_id AS 'id_obituary' FROM obituary ob INNER JOIN user_account ua ON ob.user_id = ua.user_id INNER JOIN gender g ON ob.gender_id = g.gender_id WHERE fullname LIKE '%".$_POST['t1']."%'"; //like %.$_POST.% = mengeluarkan hasil yang ada a nya , kalau %.$_POST = yang diakhiri huruf yang di postnya  
-                                    $result=$connect->query($query);    
+                                $query="SELECT *,ob.obituary_id AS 'id_obituary' FROM obituary ob INNER JOIN user_account ua ON ob.user_id = ua.user_id INNER JOIN gender g ON ob.gender_id = g.gender_id WHERE ob.obituary_id=".$id.";";  
+                                $result= mysqli_query($connect, $query);
+                                while($rows = mysqli_fetch_array($result)){
+                                    ?>
+                                <h3 class="title-5 m-b-35">data <?php echo $rows['fullname'];?></h3>
+                                <p><b>Obituary_id:</b> <?php echo $rows['id_obituary'];?></p>
+                                <p><b>Gender:</b> <?php 
+                                                    if($rows['gender_type'] == "Male")
+                                                    {
+                                                        ?>
+                                                        <span class="status--process"><?php echo $rows['gender_type'];?></span>
+                                                        <?php
+                                                    }else {
+                                                        ?>
+                                                        <span class="status--denied"><?php echo $rows['gender_type'];?></span>
+                                                        <?php
+                                                    };?>
+                                </p>
+                                <p><b>biography:</b> <?php echo $rows['biography'];?></p>
+                                <p><b>fullname:</b> <?php echo $rows['fullname'];?></p>
+                                <p><b>birthdate:</b> <?php echo $rows['birthdate'];?></p>
+                                <p><b>region:</b> <?php echo $rows['region'];?></p>
+                                <p><b>death_date:</b> <?php echo $rows['death_date'];?></p>
+                                <p><b>death_location:</b> <?php echo $rows['death_location'];?></p>
+                                <p><b>last_edited:</b> <?php echo $rows['last_edited'];?></p>
+                                    <?php
+                                }
                                 ?>
-                                <h3 class="title-5 m-b-35">data Obituary</h3>
-                                <div class="table-responsive table-responsive-data2">
-                                    <table class="table table-data2" id="myTable">
-                                        <thead>
-                                            <tr>
-                                                <th>obituary_id</th>
-                                                <th>gender</th>
-                                                <th>owner(username)</th>
-                                                <th>biography</th>
-                                                <th>fullname</th>
-                                                <th>birthdate</th>
-                                                <th>region</th>
-                                                <th>death_date</th>
-                                                <th>death_location</th>
-                                                <th>last_edited_date</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
+                                <br>
+                                <h4>Tabel Donasi</h4>
+                                <br>
+                                <!--tabel necrology milik user-->
+                                <?php
+                                    //untuk SQLnya
+                                 $query="SELECT * , SUM(f.donation) AS total_donasi 
+                                    FROM flower f 
+                                    INNER JOIN obituary ob 
+                                    ON f.obituary_id = ob.obituary_id 
+                                    WHERE f.obituary_id=".$id."";
+                                    $result= mysqli_query($connect, $query);?>
+                                <table class="table table-borderless table-data3" >
+                                    <thead>
+                                        <tr>
+                                            <th>flower_id</th>
+                                            <th>obituary_id</th>
+                                            <th>user_id</th>
+                                            <th>date_upload</th>
+                                            <th>donaton</th>
+                                            <th>gender_id</th>
+                                            <th>user_id</th>
+                                            <th>biography</th>
+                                            <th>fullname</th>
+                                            <th>birthdate</th>
+                                            <th>region</th>
+                                            <th>death_date</th>
+                                            <th>death_location</th>
+                                            <th>last_edited</th>
+                                            <th>total_donasi</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <?php
+                                        while($rows = mysqli_fetch_array($result)){
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $rows['flower_id'];?></td>
+                                            <td><?php echo $rows['obituary_id'];?></td>
+                                            <td><?php echo $rows['user_id'];?></td>
+                                            <td><?php echo $rows['date_upload'];?></td>
+                                            <td><?php echo $rows['donation'];?></td>
+                                            <td><?php echo $rows['gender_id'];?></td>
+                                            <td><?php echo $rows['user_id'];?></td>
+                                            <td><?php echo $rows['biography'];?></td>
+                                            <td><?php echo $rows['fullname'];?></td>
+                                            <td><?php echo $rows['birthdate'];?></td>
+                                            <td><?php echo $rows['region'];?></td>
+                                            <td><?php echo $rows['death_date'];?></td>
+                                            <td><?php echo $rows['death_location'];?></td>
+                                            <td><?php echo $rows['last_edited'];?></td>
+                                            <td><?php echo $rows['total_donasi'];?></td>
+                                        </tr>
+                                <?php
+                                }
+                                ?>
+                                    </tbody>
+                                </table>
+                                
 
-                                        <tbody>
-                                            <?php
-                                            while($rows = mysqli_fetch_array($result))
-                                            {
-                                                ?>  
-                                                <tr class="tr-shadow">
-                                                <td>
-                                                    <?php echo $rows['id_obituary'];?>
-                                                </td>
-                                                <td>
-                                                    <?php 
-                                                    if($rows['gender_type'] == "Male")
-                                                    {
-                                                        ?>
-                                                        <span class="status--process"><?php echo $rows['gender_type'];?></span>
-                                                        <?php
-                                                    }else {
-                                                        ?>
-                                                        <span class="status--denied"><?php echo $rows['gender_type'];?></span>
-                                                        <?php
-                                                    }?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['username'];?>
-                                                </td>
-                                                <td class="desc">
-                                                    <?php echo $rows['biography'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['fullname'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['birthdate'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['region'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['death_date'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['death_location'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['last_edited'];?>
-                                                </td>
-                                            </tr>
-                                            <tr class="spacer"></tr>
-                                            <?php
-                                            }
-                                            unset($_POST["submit4"]);
-                                        }
-                                      
-                               else{  
-                                    $query="SELECT *,ob.obituary_id AS 'id_obituary' FROM obituary ob INNER JOIN user_account ua ON ob.user_id = ua.user_id INNER JOIN gender g ON ob.gender_id = g.gender_id" ;  
-                                    $result=$connect->query($query);    
+
+                                <br>
+                                <h4>Tabel Relation</h4>
+                                <br>
+                                <!--tabel necrology milik user-->
+                                <?php
+                                    //untuk SQLnya
+                                    $query="SELECT relation.user_id,user_account.username,relation_type.relation_type,obituary.obituary_id,relation_type_id FROM relation right join relation_type ON relation.relation_type_id = relation_type.relation_id INNER JOIN obituary ON obituary.obituary_id = relation.obituary_id left join user_account ON user_account.user_id = relation.user_id WHERE relation.obituary_id=".$id.";";
+                                    $result= mysqli_query($connect, $query);?>
+                                <table class="table table-borderless table-data3" >
+                                    <thead>
+                                        <tr>
+                                            <th>User_id</th>
+                                            <th>Username</th>
+                                            <th>Relation_type</th>
+                                            <th>Obituary_id</th>
+                                            <th>Relation_type_id</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <?php
+                                        while($rows = mysqli_fetch_array($result)){
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $rows['user_id'];?></td>
+                                            <td><?php echo $rows['username'];?></td>
+                                            <td><?php echo $rows['relation_type'];?></td>
+                                            <td><?php echo $rows['obituary_id'];?></td>
+                                            <td><?php echo $rows['relation_type_id'];?></td>
+                                        </tr>
+                                <?php
+                                }
                                 ?>
-                                <h3 class="title-5 m-b-35">data Obituary</h3>
-                                <div class="table-responsive table-responsive-data2">
-                                    <table class="table table-data2" id="myTable">
-                                        <thead>
-                                            <tr>
-                                                <th>obituary_id</th>
-                                                <th>gender</th>
-                                                <th>owner(username)</th>
-                                                <th>biography</th>
-                                                <th>fullname</th>
-                                                <th>birthdate</th>
-                                                <th>region</th>
-                                                <th>death_date</th>
-                                                <th>death_location</th>
-                                                <th>last_edited_date</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            while($rows = mysqli_fetch_array($result))
-                                            {
-                                                ?>  
-                                                <tr class="tr-shadow">
-                                                <td>
-                                                    <?php echo $rows['id_obituary'];?>
-                                                </td>
-                                                <td>
-                                                    <?php 
-                                                    if($rows['gender_type'] == "Male")
-                                                    {
-                                                        ?>
-                                                        <span class="status--process"><?php echo $rows['gender_type'];?></span>
-                                                        <?php
-                                                    }else {
-                                                        ?>
-                                                        <span class="status--denied"><?php echo $rows['gender_type'];?></span>
-                                                        <?php
-                                                    }?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['username'];?>
-                                                </td>
-                                                <td class="desc">
-                                                    <?php echo $rows['biography'];?>
-                                                </td>
-                                                <td>
-                                                <?php echo '<a href="detail_obituary.php?id='.$rows['id_obituary'].'">'.$rows['fullname'].''?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['birthdate'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['region'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['death_date'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['death_location'];?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $rows['last_edited'];?>
-                                                </td>
-                                            </tr>
-                                            <tr class="spacer"></tr>
-                                            <?php
-                                            }
-                                            unset($_POST["submit4"]);
-                                        }
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    </tbody>
+                                </table>
+
+
+
+
+
+
+
+                                <br>
+                                <h4>Tabel Rememberer</h4>
+                                <br>
+                                <!--tabel necrology milik user-->
+                                <?php
+                                    //untuk SQLnya
+                                    $query="SELECT user_account.user_id,rememberer.obituary_id,fullname,count(rmb_id) as total FROM rememberer
+                                    left join obituary ON obituary.obituary_id= rememberer.obituary_id 
+                                    left join user_account ON user_account.user_id=rememberer.user_id WHERE rememberer.obituary_id=".$id.";";
+                                    $result= mysqli_query($connect, $query);?>
+                                <table class="table table-borderless table-data3" >
+                                    <thead>
+                                        <tr>
+                                            <th>User_id</th>
+                                            <th>obituary_id</th>
+                                            <th>fullname</th>
+                                            <th>total</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <?php
+                                        while($rows = mysqli_fetch_array($result)){
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $rows['user_id'];?></td>
+                                            <td><?php echo $rows['obituary_id'];?></td>
+                                            <td><?php echo $rows['fullname'];?></td>
+                                            <td><?php echo $rows['total'];?></td>
+                                        </tr>
+                                <?php
+                                }
+                                ?>
+                                
+                                
+                                
+                                    </tbody>
+                                </table>
+
+
+
+
+
+
+
+
                                 <!-- END DATA TABLE -->
                             </div> 
                         </div>
                     </div>
                 </div>
             </div>
+
+
+
+
+            
+            
+
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
-    <script src="vendor/ddtf.js"></script>
-    <script>
-        $('#myTable').ddTableFilter();
-    </script>
-    
     <!-- Bootstrap JS-->
     <script src="vendor/bootstrap-4.1/popper.min.js"></script>
     <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
