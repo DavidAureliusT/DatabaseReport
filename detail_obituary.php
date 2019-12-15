@@ -309,16 +309,13 @@
                                 <!--tabel necrology milik user-->
                                 <?php
                                     //untuk SQLnya
-                                    $query="SELECT relation.user_id,user_account.username,relation_type.relation_type,obituary.obituary_id,relation_type_id FROM relation right join relation_type ON relation.relation_type_id = relation_type.relation_id INNER JOIN obituary ON obituary.obituary_id = relation.obituary_id left join user_account ON user_account.user_id = relation.user_id WHERE relation.obituary_id=".$id.";";
+                                    $query="SELECT user_account.username,relation_type.relation_type FROM relation right join relation_type ON relation.relation_type_id = relation_type.relation_id INNER JOIN obituary ON obituary.obituary_id = relation.obituary_id left join user_account ON user_account.user_id = relation.user_id WHERE relation.obituary_id=".$id.";";
                                     $result= mysqli_query($connect, $query);?>
                                 <table class="table table-borderless table-data3" >
                                     <thead>
                                         <tr>
-                                            <th>User_id</th>
                                             <th>Username</th>
                                             <th>Relation_type</th>
-                                            <th>Obituary_id</th>
-                                            <th>Relation_type_id</th>
                                         </tr>
                                     </thead>
                                     
@@ -327,11 +324,8 @@
                                         while($rows = mysqli_fetch_array($result)){
                                         ?>
                                         <tr>
-                                            <td><?php echo $rows['user_id'];?></td>
                                             <td><?php echo $rows['username'];?></td>
                                             <td><?php echo $rows['relation_type'];?></td>
-                                            <td><?php echo $rows['obituary_id'];?></td>
-                                            <td><?php echo $rows['relation_type_id'];?></td>
                                         </tr>
                                 <?php
                                 }
@@ -351,15 +345,13 @@
                                 <!--tabel necrology milik user-->
                                 <?php
                                     //untuk SQLnya
-                                    $query="SELECT user_account.user_id,rememberer.obituary_id,fullname,count(rmb_id) as total FROM rememberer
+                                    $query="SELECT fullname,count(rmb_id) as total FROM rememberer
                                     left join obituary ON obituary.obituary_id= rememberer.obituary_id 
                                     left join user_account ON user_account.user_id=rememberer.user_id WHERE rememberer.obituary_id=".$id.";";
                                     $result= mysqli_query($connect, $query);?>
                                 <table class="table table-borderless table-data3" >
                                     <thead>
                                         <tr>
-                                            <th>User_id</th>
-                                            <th>obituary_id</th>
                                             <th>fullname</th>
                                             <th>total</th>
                                         </tr>
@@ -370,8 +362,6 @@
                                         while($rows = mysqli_fetch_array($result)){
                                         ?>
                                         <tr>
-                                            <td><?php echo $rows['user_id'];?></td>
-                                            <td><?php echo $rows['obituary_id'];?></td>
                                             <td><?php echo $rows['fullname'];?></td>
                                             <td><?php echo $rows['total'];?></td>
                                         </tr>
@@ -390,16 +380,14 @@
                                 <!--tabel necrology milik user-->
                                 <?php
                                     //untuk SQLnya
-                                    $query="SELECT user_account.user_id,username,story.obituary_id,count(story.user_id)as total from user_account 
+                                    $query="SELECT username,count(story.user_id)as total from user_account 
                                     left join story on user_account.user_id=story.user_id 
                                     WHERE story.obituary_id=".$id.";";
                                     $result= mysqli_query($connect, $query);?>
                                 <table class="table table-borderless table-data3" >
                                     <thead>
                                         <tr>
-                                            <th>User_id</th>
                                             <th>Username</th>
-                                            <th>Obituary_id</th>
                                             <th>total</th>
                                         </tr>
                                     </thead>
@@ -409,9 +397,7 @@
                                         while($rows = mysqli_fetch_array($result)){
                                         ?>
                                         <tr>
-                                            <td><?php echo $rows['user_id'];?></td>
                                             <td><?php echo $rows['username'];?></td>
-                                            <td><?php echo $rows['obituary_id'];?></td>
                                             <td><?php echo $rows['total'];?></td>
                                         </tr>
                                 <?php
@@ -444,23 +430,21 @@
                                 <!--tabel necrology milik user-->
                                 <?php
                                     //untuk SQLnya
-                                    $query="SELECT testimony.obituary_id,testimony.testimony,fullname from testimony left join obituary on testimony.obituary_id=obituary.obituary_id  WHERE testimony.obituary_id=".$id.";";
+                                    $query="SELECT testimony.testimony,fullname from testimony left join obituary on testimony.obituary_id=obituary.obituary_id  WHERE testimony.obituary_id=".$id.";";
                                     $result= mysqli_query($connect, $query);?>
                                 <table class="table table-borderless table-data3" >
                                     <thead>
                                         <tr>
-                                            <th>Obituary_id</th>
                                             <th>fullname</th>
                                             <th>Testimony</th>
                                         </tr>
                                     </thead>
                                     
-                                    <tbody>
+                                    <tbody
                                         <?php
                                         while($rows = mysqli_fetch_array($result)){
                                         ?>
                                         <tr>
-                                            <td><?php echo $rows['obituary_id'];?></td>
                                             <td><?php echo $rows['fullname'];?></td>
                                             <td><?php echo $rows['testimony'];?></td>
                                         </tr>
