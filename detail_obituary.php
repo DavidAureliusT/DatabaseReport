@@ -148,11 +148,11 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li class="active">
+                        <li>
                             <a href="daftar_userAccount.php">
                                 <i class="fas fa-table"></i>Table User Account</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="daftar_obituary.php">
                                 <i class="fas fa-table"></i>Table Obituary</a>
                         </li>
@@ -262,13 +262,9 @@
                                 <table class="table table-borderless table-data3" >
                                     <thead>
                                         <tr>
-                                            <th>flower_id</th>
-                                            <th>obituary_id</th>
-                                            <th>user_id</th>
+                                            
                                             <th>date_upload</th>
                                             <th>donaton</th>
-                                            <th>gender_id</th>
-                                            <th>user_id</th>
                                             <th>biography</th>
                                             <th>fullname</th>
                                             <th>birthdate</th>
@@ -285,13 +281,11 @@
                                         while($rows = mysqli_fetch_array($result)){
                                         ?>
                                         <tr>
-                                            <td><?php echo $rows['flower_id'];?></td>
-                                            <td><?php echo $rows['obituary_id'];?></td>
-                                            <td><?php echo $rows['user_id'];?></td>
+                                            
                                             <td><?php echo $rows['date_upload'];?></td>
                                             <td><?php echo $rows['donation'];?></td>
-                                            <td><?php echo $rows['gender_id'];?></td>
-                                            <td><?php echo $rows['user_id'];?></td>
+                                            
+                                            
                                             <td><?php echo $rows['biography'];?></td>
                                             <td><?php echo $rows['fullname'];?></td>
                                             <td><?php echo $rows['birthdate'];?></td>
